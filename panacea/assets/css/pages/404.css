@@ -1,0 +1,143 @@
+/* ==========================================================================
+   Farmacia Panacea — Página 404 (page_name: pagenotfound)
+   Réplica del diseño de Lovable (NotFoundPage.tsx).
+   Estructura en Creative Elements; aquí solo estilos.
+   Clases para poner en CE (Avanzado > Clases CSS):
+     .pnc-404               sección del mensaje
+     .pnc-404__eyebrow      "404 · Página no encontrada"
+     .pnc-404__title        h1
+     .pnc-404__text         texto de apoyo
+     .pnc-404__search       buscador
+     .pnc-404__actions      sección interior con los dos botones
+     .pnc-404__cats         sección de categorías
+   ========================================================================== */
+
+/* Sección del mensaje ----------------------------------------------------- */
+.pnc-404 {
+  padding-top: var(--pnc-space-8);
+  text-align: center;
+}
+.pnc-404 > .elementor-container,
+.pnc-404 .elementor-widget-wrap {
+  max-width: 42rem;            /* max-w-2xl */
+  margin-inline: auto;
+}
+
+.pnc-404__eyebrow,
+.pnc-404__eyebrow .elementor-heading-title,
+.pnc-404__eyebrow p {
+  margin: 0;
+  font-family: var(--pnc-font-body);
+  font-size: var(--pnc-fs-xs);
+  font-weight: var(--pnc-fw-regular);
+  letter-spacing: 0.2em;
+  text-transform: none;
+  color: var(--pnc-text-muted);
+}
+
+.pnc-404__title .elementor-heading-title {
+  margin-top: var(--pnc-space-4);
+  font-family: var(--pnc-font-display);
+  font-weight: var(--pnc-fw-regular);
+  font-size: 3rem;             /* text-5xl */
+  line-height: var(--pnc-lh-tight);
+  color: var(--pnc-text);
+  text-wrap: balance;
+}
+
+.pnc-404__text,
+.pnc-404__text p {
+  max-width: 32rem;            /* max-w-lg */
+  margin: var(--pnc-space-4) auto 0;
+  font-size: var(--pnc-fs-sm);
+  line-height: var(--pnc-lh-base);
+  color: var(--pnc-text-muted);
+}
+
+.pnc-404__search {
+  max-width: 32rem;
+  margin: var(--pnc-space-6) auto 0;
+  text-align: left;
+}
+
+/* Botones: dos columnas iguales, una en móvil ---------------------------- */
+.pnc-404__actions {
+  max-width: 32rem;
+  margin: var(--pnc-space-4) auto 0;
+}
+.pnc-404__actions > .elementor-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--pnc-space-3);
+}
+.pnc-404__actions .elementor-column { width: 100% !important; }
+.pnc-404__actions .elementor-column-wrap,
+.pnc-404__actions .elementor-widget-wrap { padding: 0 !important; }
+.pnc-404__actions .elementor-button {
+  display: flex;
+  width: 100%;
+  min-height: 48px;            /* h-12 */
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--pnc-radius-pill);
+  box-shadow: none;
+  font-size: var(--pnc-fs-sm);
+  font-weight: var(--pnc-fw-medium);
+  transition: background-color var(--pnc-dur) var(--pnc-ease),
+              color var(--pnc-dur) var(--pnc-ease),
+              border-color var(--pnc-dur) var(--pnc-ease);
+}
+
+/* Categorías ------------------------------------------------------------- */
+.pnc-404__cats {
+  margin-top: var(--pnc-space-8);
+  padding-top: var(--pnc-space-6);
+  border-top: 1px solid var(--pnc-border);
+}
+.pnc-404__cats .elementor-heading-title {
+  text-align: center;
+  font-family: var(--pnc-font-display);
+  font-weight: var(--pnc-fw-regular);
+  font-size: 1.875rem;         /* text-3xl */
+  color: var(--pnc-text);
+}
+.pnc-404__cats img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--pnc-radius-sm);
+  background: var(--pnc-sage-soft);
+  transition: transform 300ms var(--pnc-ease);
+}
+.pnc-404__cats .elementor-image { overflow: hidden; border-radius: var(--pnc-radius-sm); }
+.pnc-404__cats a:hover img { transform: scale(1.05); }
+.pnc-404__cats .widget-image-caption,
+.pnc-404__cats .elementor-image-box-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--pnc-space-2);
+  margin-top: var(--pnc-space-3);
+  font-size: var(--pnc-fs-sm);
+  color: var(--pnc-text);
+  text-align: left;
+}
+.pnc-404__cats .widget-image-caption::after,
+.pnc-404__cats .elementor-image-box-title::after {
+  content: "→";
+  color: var(--pnc-sage-active);
+  flex-shrink: 0;
+}
+
+/* Móvil ------------------------------------------------------------------ */
+@media (max-width: 767px) {
+  .pnc-404 { padding-top: var(--pnc-space-6); }
+  .pnc-404__title .elementor-heading-title { font-size: 2.25rem; }   /* text-4xl */
+  .pnc-404__actions > .elementor-container { grid-template-columns: 1fr; }
+  .pnc-404__cats { margin-top: var(--pnc-space-7); }
+  .pnc-404__cats .elementor-heading-title { font-size: var(--pnc-fs-h3); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pnc-404__cats img, .pnc-404__actions .elementor-button { transition: none; }
+}

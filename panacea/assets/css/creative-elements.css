@@ -235,6 +235,26 @@
     background-color: color-mix(in srgb, var(--pnc-green-dark-banner, #435342) 85%, transparent)!important;
 }
 
+/* Variante outline: borde gris y fondo blanco (Button variant="outline" en Lovable).
+   Uso: "pnc-btn elementor-button-outline" */
+.pnc-btn.elementor-button-outline .elementor-button,
+.pnc-btn.elementor-button-outline a.elementor-button-link,
+.pnc-form.elementor-button-outline .elementor-button,
+.pnc-form.elementor-button-outline a.elementor-button-link {
+    background-color: var(--pnc-white)!important;
+    border-color: var(--pnc-border)!important;
+    color: var(--pnc-text)!important;
+}
+.pnc-btn.elementor-button-outline .elementor-button:hover,
+.pnc-btn.elementor-button-outline a.elementor-button-link:hover,
+.pnc-form.elementor-button-outline .elementor-button:hover,
+.pnc-form.elementor-button-outline a.elementor-button-link:hover {
+    background-color: var(--pnc-sage-soft)!important;
+    border-color: var(--pnc-sage-line)!important;
+    color: var(--pnc-text)!important;
+    box-shadow: none!important;
+}
+
 .pnc-input {
   border: var(--pnc-border-grey-solid);
   min-height: 54px;

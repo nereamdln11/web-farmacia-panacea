@@ -1,0 +1,25 @@
+# Caché que genera PrestaShop (CSS/JS combinados)
+assets/cache/
+
+# Dependencias y logs
+node_modules/
+*.log
+npm-debug.log*
+
+# Configuración con contraseñas o datos de conexión
+.env
+.vscode/sftp.json
+sftp-config.json
+.ftpconfig
+
+# Sistema operativo y editores
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+*.swp
+
+# Copias temporales
+*.bak
+*.tmp
+*~

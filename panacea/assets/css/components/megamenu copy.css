@@ -1,0 +1,174 @@
+/* ==========================================================================
+   Farmacia Panacea — Megamenú (3 columnas)
+   Requiere tokens.css (variables --pnc-*)
+   Clases usadas en Creative Elements / plantilla del megamenú
+   ========================================================================== */
+
+.pnc-megamenu-wrapper { 
+  position: relative;
+ }
+
+/* Botón del header que abre el panel */
+.pnc-megamenu-toggle {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--pnc-font-body); font-size: 15px; font-weight: 300;
+  color: var(--pnc-green-dark); background: none; border: 0; cursor: pointer;
+  padding: 10px 0; transition: color var(--pnc-dur, .2s) var(--pnc-ease, ease);
+}
+.pnc-megamenu-toggle:hover,
+.pnc-megamenu-toggle[aria-expanded="true"] { color: var(--pnc-sage); }
+.pnc-megamenu-toggle svg { width: 16px; height: 16px; transition: transform .2s ease; }
+.pnc-megamenu-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+/* Panel: ancho completo, bajo el header, sin flotar.
+   El posicionamiento absoluto y el ocultar/mostrar solo se aplican dentro
+   de .pnc-megamenu-wrapper: esa clase debe ponerse (Avanzado > Clases CSS)
+   en la SECCIÓN real del header donde se inserta la plantilla guardada,
+   nunca dentro de la propia plantilla. Así, al editar la plantilla guardada
+   de forma aislada en Creative Elements (sin esa sección alrededor), el
+   panel se ve siempre en bloque normal y su contenido es editable. */
+.pnc-megamenu-wrapper .pnc-megamenu {
+  position: absolute; left: 0; right: 0; top: 100%; z-index: 60;
+  display: none;
+  border-bottom: 1px solid var(--pnc-border, #E6E8E3);
+  border-top: 0;
+  overflow: hidden;
+  box-shadow: var(--pnc-shadow-soft, 0 12px 32px -18px rgba(67,83,66,.28));
+}
+.pnc-megamenu-wrapper .pnc-megamenu.is-open { display: grid; }
+@media (min-width: 992px) {
+  .pnc-megamenu-wrapper .pnc-megamenu.is-open {
+    grid-template-columns: minmax(220px, 1fr) 1.6fr minmax(280px, 1fr);
+  }
+}
+
+/* Columna 1 — Categorías ---------------------------------------------------- */
+.pnc-megamenu-categories {
+  border-right: 1px solid var(--pnc-border-grey);
+  padding-block: 28px;
+}
+.pnc-megamenu-label .elementor-heading-title,
+.pnc-label-overline .elementor-heading-title {
+  font-family: var(--pnc-font-body);
+  font-size: 11px; line-height: 1.4; font-weight: 400;
+  text-transform: uppercase; letter-spacing: .24em;
+  color: var(--pnc-eyebrow, #6B6F69);
+  margin: 0;
+}
+.pnc-megamenu-categories > .pnc-megamenu-label { padding-inline: 28px; }
+.pnc-megamenu-list .elementor-icon-list-items { list-style: none; margin: 20px 0 0; padding: 0; }
+
+.pnc-megamenu-list .elementor-icon-list-item {
+  display: flex; align-items: center; width: 100%;
+}
+.pnc-megamenu-list .elementor-icon-list-item a {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 10px 28px; text-align: left;
+  font-family: var(--pnc-font-body); font-size: 15px; font-weight: 300;
+  color: var(--pnc-text-muted, #6B6F69);
+  background: none; border: 0; cursor: pointer;
+  transition: color .2s ease;
+}
+.pnc-megamenu-list .elementor-icon-list-text { flex: 1; }
+.pnc-megamenu-list .elementor-icon-list-item a:hover { color: var(--pnc-green-dark, #435342); }
+.pnc-megamenu-list .elementor-icon-list-item.is-active a { color: var(--pnc-green-dark, #435342); }
+
+.pnc-megamenu-arrow {
+  width: 16px; height: 16px; flex: 0 0 auto;
+  color: var(--pnc-sage, #9CAF88);
+  opacity: 0; transform: translateX(-4px);
+  transition: opacity .2s ease, transform .2s ease;
+}
+.pnc-megamenu-item.is-active .pnc-megamenu-arrow { opacity: 1; transform: translateX(0); }
+
+/* Columna 2 — Subcategorías ------------------------------------------------- */
+.pnc-subcategory-panel {
+  display: flex;
+  flex-direction: column; justify-content: space-between;
+  padding: 28px 40px;
+}
+.pnc-megamenu-wrapper .pnc-subcategory-panel { display: none; }
+.pnc-megamenu-wrapper .pnc-subcategory-panel.is-active { display: flex; }
+
+.pnc-subcategory-grid .elementor-icon-list-items {
+  list-style: none; margin: 24px 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 40px; row-gap: 16px;
+}
+@media (max-width: 767.98px) { .pnc-subcategory-grid .elementor-icon-list-items { grid-template-columns: 1fr; } }
+
+.pnc-subcategory-grid .elementor-icon-list-item a,
+.pnc-subcategory-link,
+.pnc-link-muted {
+  font-family: var(--pnc-font-body); font-size: 15px; font-weight: 300;
+  color: var(--pnc-text-muted, #6B6F69); text-decoration: none;
+  transition: color .2s ease;
+}
+.pnc-subcategory-grid .elementor-icon-list-item a:hover,
+.pnc-subcategory-link:hover,
+.pnc-link-muted:hover { color: var(--pnc-green-dark, #435342); }
+
+/* Enlace con flecha ("Ver todo en…", "Ver producto") */
+.pnc-link-arrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 28px;
+  font-size: 14px; color: var(--pnc-sage, #9CAF88); text-decoration: none;
+  transition: gap .2s ease, color .2s ease;
+}
+.pnc-link-arrow:hover { gap: 12px; color: var(--pnc-sage-active, #7E9569); }
+.pnc-link-arrow svg { width: 16px; height: 16px; }
+
+/* Categorías sin subcategorías: descripción editorial */
+.pnc-editorial-description {
+  max-width: 28rem; margin-top: 24px;
+  font-family: var(--pnc-font-body); font-size: 18px; font-weight: 300; line-height: 1.4;
+  color: var(--pnc-green-dark, #435342);
+}
+
+/* Pie de la columna: marcas destacadas */
+.pnc-megamenu-brands {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  margin-top: 40px; padding-top: 24px;
+  border-top: 1px solid rgba(230,232,227,.7);
+}
+.pnc-text-xs-muted { font-size: 12px; color: var(--pnc-text-muted, #6B6F69); margin-right: 4px; }
+.pnc-brand-chip {
+  display: inline-block; padding: 4px 12px;
+  border: 1px solid var(--pnc-border, #E6E8E3); border-radius: 999px;
+  font-size: 12px; font-weight: 300; color: rgba(67,83,66,.75); text-decoration: none;
+  transition: border-color .2s ease, color .2s ease;
+}
+.pnc-brand-chip:hover { border-color: var(--pnc-sage, #9CAF88); color: var(--pnc-green-dark, #435342); }
+
+/* Columna 3 — Selección del farmacéutico ------------------------------------ */
+.pnc-megamenu-featured { border-left: 1px solid rgba(230,232,227,.7); padding: 28px; }
+.pnc-megamenu-wrapper .pnc-featured-panel { display: none; }
+.pnc-megamenu-wrapper .pnc-featured-panel.is-active { display: block; }
+.pnc-featured-img {
+  margin-top: 20px; border-radius: 12px; overflow: hidden;
+}
+.pnc-featured-img img { width: 100%; height: 176px; object-fit: cover; display: block; }
+.pnc-featured-brand {
+  margin-top: 16px; font-size: 12px; text-transform: uppercase; letter-spacing: .16em;
+  color: var(--pnc-text-muted, #6B6F69);
+}
+.pnc-product-name {
+  margin-top: 6px; font-size: 16px; font-weight: 300; line-height: 1.35;
+  color: var(--pnc-green-dark, #435342);
+}
+.pnc-price { margin-top: 8px; font-size: 14px; color: var(--pnc-green-dark, #435342); }
+
+/* Móvil: acordeón en lugar de 3 columnas ------------------------------------ */
+@media (max-width: 991.98px) {
+  .pnc-megamenu-wrapper .pnc-megamenu { position: static; border-radius: 0; box-shadow: none; }
+  .pnc-megamenu-wrapper .pnc-megamenu.is-open { display: block; }
+  .pnc-megamenu-categories { border-right: 0; }
+  .pnc-megamenu-featured { display: none; }
+  .pnc-subcategory-panel { padding: 20px 28px; }
+}
+
+/* Iconos SVG inline ------------------------------------------------------- */
+.pnc-megamenu-arrow { display: inline-flex; }
+.pnc-megamenu-arrow svg,
+.pnc-link-arrow svg,
+.pnc-megamenu-toggle svg { width: 16px; height: 16px; flex: 0 0 auto; display: block; }

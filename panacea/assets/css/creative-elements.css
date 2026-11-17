@@ -1,0 +1,443 @@
+/* ==========================================================================
+   Farmacia Panacea — capa para Creative Elements
+   Todo lo de aquí está pensado para asignarse desde el editor, en
+   Avanzado > Clases CSS de cada widget/sección/columna.
+   ========================================================================== */
+
+
+/* Contenedores y ritmo vertical ----------------------------------------- */
+.pnc-wrap { max-width: var(--pnc-container); margin-inline: auto; padding-inline: var(--pnc-gutter); }
+.pnc-pad-lg { padding-block: var(--pnc-section-y); }
+.pnc-pad-md { padding-block: var(--pnc-space-7); }
+.pnc-pad-sm { padding-block: var(--pnc-space-5); }
+
+/* Margen superior de sección (responsive) ----------------------------------
+   Para separar una sección de la anterior. Se pone en la SECCIÓN.
+                 escritorio   tablet (≤1024)   móvil (≤767)
+   .pnc-mt-lg       80px          64px            48px
+   .pnc-mt-md       48px          40px            32px
+   .pnc-mt-sm       32px          24px            24px
+   Si en el editor se da margen a la sección (Avanzado → Margen), ese valor
+   gana: déjalo vacío para usar estas clases. */
+.pnc-mt-lg { --pnc-mt: var(--pnc-section-y); }
+.pnc-mt-md { --pnc-mt: var(--pnc-space-7); }
+.pnc-mt-sm { --pnc-mt: var(--pnc-space-6); }
+.pnc-mt-lg, .pnc-mt-md, .pnc-mt-sm { margin-top: var(--pnc-mt); }
+@media (max-width: 1024px) {
+  .pnc-mt-lg { --pnc-mt: var(--pnc-space-8); }
+  .pnc-mt-md { --pnc-mt: 40px; }
+  .pnc-mt-sm { --pnc-mt: var(--pnc-space-5); }
+}
+@media (max-width: 767px) {
+  .pnc-mt-lg { --pnc-mt: var(--pnc-section-y-sm); }
+  .pnc-mt-md { --pnc-mt: var(--pnc-space-6); }
+}
+.pnc-bg-white { background: var(--pnc-white) !important; }
+.pnc-bg-cream { background: var(--pnc-cream) !important; }
+.pnc-bg-soft  { background: var(--pnc-sage-soft) !important; }
+.pnc-line-top { border-top: 1px solid var(--pnc-border); }
+.pnc-line-bottom { border-bottom: 1px solid var(--pnc-border); }
+
+.pnc-container-2xl-principal {
+  padding: 0;
+  border-radius: var(--pnc-radius-2xl);
+  border: var(--pnc-border-grey-solid);
+}
+.pnc-container-2xl-principal-padding {
+  padding: var(--pnc-space-8) var(--pnc-space-7);
+}
+/* Tablet */
+@media (max-width: 768px) {
+  .pnc-container-2xl-principal {
+    border-radius: var(--pnc-radius-xl);
+  }
+  .pnc-container-2xl-principal-padding {
+    padding: var(--pnc-space-7) var(--pnc-space-6);
+  }
+}
+/* Móvil */
+@media (max-width: 576px) {
+  .pnc-container-2xl-principal {
+    border-radius: var(--pnc-radius-lg);
+  }
+  .pnc-container-2xl-principal-padding {
+    padding: var(--pnc-space-6) var(--pnc-space-5);
+  }
+}
+
+
+.pnc-container-border-radius-2xl {
+  border-radius: var(--pnc-radius-2xl);
+  border: var(--pnc-border-grey-solid);
+}
+.pnc-container-padding-2xl {
+  padding: var(--pnc-space-7);
+}
+.pnc-container-padding-xl {
+    padding: var(--pnc-space-5);
+  }
+
+/* Tablet */
+@media (max-width: 768px) {
+  .pnc-container-border-radius-2xl {
+    border-radius: var(--pnc-radius-xl);
+  }
+  .pnc-container-padding-2xl {
+    padding: var(--pnc-space-6);
+  }
+  .pnc-container-padding-xl {
+    padding: var(--pnc-space-4);
+  }
+
+}
+/* Móvil */
+@media (max-width: 576px) {
+  .pnc-container-border-radius-2xl {
+    border-radius: var(--pnc-radius-lg);
+  }
+  .pnc-container-padding-2xl {
+    padding: var(--pnc-space-5);
+  }
+  .pnc-container-padding-xl {
+    padding: var(--pnc-space-4);
+  }
+}
+.pnc-container-bg-green {
+  background: color-mix(
+            in srgb,
+            var(--pnc-sage, #9caf88) 15%,
+            transparent
+        );
+}
+
+
+
+
+
+/* Tipografía en widgets de texto/encabezado ------------------------------ */
+.pnc-h-hero .elementor-heading-title,
+.pnc-h-hero h1, .pnc-h-hero h2 { font-family: var(--pnc-font-display); font-size: var(--pnc-fs-hero); line-height: var(--pnc-lh-tight); color: var(--pnc-green-dark); }
+.pnc-h-1 .elementor-heading-title { font-family: var(--pnc-font-display); font-size: var(--pnc-fs-h1); color: var(--pnc-green-dark); }
+.pnc-h-2 .elementor-heading-title { font-family: var(--pnc-font-display); font-size: var(--pnc-fs-h2); color: var(--pnc-green-dark); }
+.pnc-h-3 .elementor-heading-title { font-family: var(--pnc-font-body); font-size: var(--pnc-fs-h3); font-weight: var(--pnc-fw-medium); color: var(--pnc-green-dark); }
+.pnc-eyebrow .elementor-heading-title { font-size: var(--pnc-fs-xs); letter-spacing: var(--pnc-ls-wide); text-transform: uppercase; color: var(--pnc-sage-active); font-family: var(--pnc-font-body); }
+.pnc-lead, .pnc-lead p { font-size: var(--pnc-fs-lg); color: var(--pnc-text-muted); }
+.pnc-text-muted, .pnc-text-muted p { color: var(--pnc-text-muted); }
+.pnc-text-dark, .pnc-text-dark p { color: var(--pnc-green-dark); }
+.pnc-measure { max-width: 60ch; }
+
+/* Botones de widget ------------------------------------------------------ */
+
+.pnc-btn .elementor-button,
+.pnc-btn a.elementor-button-link,
+.pnc-form .elementor-button,
+.pnc-form a.elementor-button-link {
+    border: var(--pnc-border-grey-solid)!important;
+    margin: 0!important;
+    border-radius: var(--pnc-radius-pill, 999px)!important;
+    font-family: var(--pnc-font-body)!important;
+    font-weight: var(--pnc-fw-regular)!important;
+    font-size: var(--pnc-fs-sm)!important;
+    padding: 12px 28px!important;
+    transition: all var(--pnc-dur) var(--pnc-ease)!important;
+}
+.pnc-btn.elementor-button-primary.pnc-btn-add-cart .elementor-button,
+.pnc-btn.elementor-button-primary.pnc-btn-add-cart a.elementor-button-link {
+  padding: 10px 20px!important; /* VER LOGIN Y REGISTRO PARA VER EL BOTÓN ESE, CREO QUE TIENE DEMASIADO PADDING COMO PARA PONERLE ESO A TODOS*/
+}
+
+/* El botón ocupa todo el ancho y alto del widget cuando en Creative Elements
+   se cambia el ancho del widget (Avanzado → Posicionamiento → Ancho:
+   "En línea (auto)" o "Personalizado", con o sin "Crecer"). Con el ancho por
+   defecto (100% de la columna) se respeta la alineación del botón.
+   Para forzarlo en cualquier caso: añadir la clase "pnc-btn-fill". */
+.pnc-btn.elementor-widget__width-auto > .elementor-widget-container,
+.pnc-btn.elementor-widget__width-initial > .elementor-widget-container,
+.pnc-btn.elementor-widget__width-calc > .elementor-widget-container,
+.pnc-btn.pnc-btn-fill > .elementor-widget-container {
+    display: flex;
+    height: 100%;
+}
+.pnc-btn.elementor-widget__width-auto .elementor-button,
+.pnc-btn.elementor-widget__width-initial .elementor-button,
+.pnc-btn.elementor-widget__width-calc .elementor-button,
+.pnc-btn.pnc-btn-fill .elementor-button,
+.pnc-btn.pnc-btn-fill a.elementor-button-link {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+}
+
+/* Modificador: el botón ocupa todo el alto de la fila en la que está
+   (p. ej. igualarlo a la cantidad y a favoritos en la ficha de producto).
+   Uso: "pnc-btn elementor-button-primary pnc-btn-add-cart pnc-btn-full-height"
+   No usa alturas en %: el widget se estira en la fila y el botón crece
+   dentro de él con flex, así que funciona aunque la fila no tenga alto fijo.
+   align-self con !important: CE genera "align-self: center" por ID de
+   elemento si en Posicionamiento se elige una alineación vertical, y esa
+   regla es más específica; esta clase existe justo para anularla. */
+.pnc-btn.pnc-btn-full-height {
+    display: flex;
+    align-self: stretch !important;
+}
+.pnc-btn.pnc-btn-full-height > .elementor-widget-container {
+    display: flex;
+    flex: 1 1 auto;
+    height: auto;
+}
+.pnc-btn.pnc-btn-full-height .elementor-button {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    min-height: 0;
+}
+
+.pnc-btn .elementor-button:disabled,
+.pnc-btn a.elementor-button-link:disabled,
+.pnc-form .elementor-button:disabled,
+.pnc-form a.elementor-button-link:disabled{
+    background-color: var(--pnc-border)!important;
+    border: var(--pnc-border)!important;
+    color: var(--pnc-text-muted)!important;
+    cursor: not-allowed!important;
+}
+
+.pnc-btn.elementor-button-primary .elementor-button,
+.pnc-btn.elementor-button-primary a.elementor-button-link,
+.pnc-form.elementor-button-primary .elementor-button,
+.pnc-form.elementor-button-primary a.elementor-button-link {
+    background-color: var(--pnc-sage, #9caf88)!important;
+    color: var(--pnc-white)!important;
+}
+.pnc-btn.elementor-button-primary .elementor-button:hover,
+.pnc-btn.elementor-button-primary a.elementor-button-link:hover,
+.pnc-form.elementor-button-primary .elementor-button:hover,
+.pnc-form.elementor-button-primary a.elementor-button-link:hover {
+    background-color: color-mix(in srgb, var(--pnc-sage, #9caf88) 85%, transparent)!important;
+}
+
+.pnc-btn.elementor-button-secondary .elementor-button,
+.pnc-btn.elementor-button-secondary a.elementor-button-link,
+.pnc-form.elementor-button-secondary .elementor-button,
+.pnc-form.elementor-button-secondary a.elementor-button-link {
+    background-color: var(--pnc-green-dark-banner, #435342)!important;
+    color: var(--pnc-white)!important;
+}
+.pnc-btn.elementor-button-secondary .elementor-button:hover,
+.pnc-btn.elementor-button-secondary a.elementor-button-link:hover,
+.pnc-form.elementor-button-secondary .elementor-button:hover,
+.pnc-form.elementor-button-secondary a.elementor-button-link:hover {
+    background-color: color-mix(in srgb, var(--pnc-green-dark-banner, #435342) 85%, transparent)!important;
+}
+
+.pnc-input {
+  border: var(--pnc-border-grey-solid);
+  min-height: 54px;
+  box-sizing: border-box;
+  border-radius: var(--pnc-radius-pill, 999px);
+  padding: 10px 20px; 
+  font-family: var(--pnc-font-body);
+  font-weight: var(--pnc-fw-regular);
+  font-size: var(--pnc-fs-sm);
+  color: var(--pnc-green-dark);
+  background: var(--pnc-white);
+  outline: none;
+
+  transition: all var(--pnc-dur) var(--pnc-ease);
+  
+}
+.pnc-input::placeholder {
+    color: var(--pnc-text-muted, #8b918b);
+    opacity: 1;
+}
+.pnc-input:focus {
+    border-color: var(--pnc-sage, #9caf88);
+    outline: none;
+
+    box-shadow:
+        0 0 0 4px
+        color-mix(
+            in srgb,
+            var(--pnc-sage, #9caf88) 15%,
+            transparent
+        );
+}
+
+.pnc-input.pnc-input-icon {
+
+}
+.pnc-input-icon-password{
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238b918b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='11' x='3' y='11' rx='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E");
+
+    background-repeat: no-repeat;
+    background-position: left 16px center;
+    background-size: 16px 16px;
+
+    padding-right: 48px;
+}
+.pnc-input-icon-email{
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238b918b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='16' x='2' y='4' rx='2'/%3E%3Cpath d='m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7'/%3E%3C/svg%3E");
+
+    background-repeat: no-repeat;
+    background-position: left 16px center;
+    background-size: 16px 16px;
+}
+/*
+.pnc-btn .elementor-button:hover { background: var(--pnc-sage-hover); border-color: var(--pnc-sage-hover); color: var(--pnc-white); box-shadow: var(--pnc-shadow-soft); }
+.pnc-btn .elementor-button:active { background: var(--pnc-sage-active); border-color: var(--pnc-sage-active); box-shadow: none; }
+.pnc-btn-ghost .elementor-button {
+  background: transparent; color: var(--pnc-green-dark); border: 1px solid var(--pnc-green-dark);
+  border-radius: var(--pnc-radius-pill); padding: 12px 28px; font-weight: var(--pnc-fw-medium);
+}
+.pnc-btn-ghost .elementor-button:hover { background: var(--pnc-green-dark); color: var(--pnc-white); }
+.pnc-btn-link .elementor-button { background: none; border: 0; color: var(--pnc-green-dark); text-decoration: underline; text-underline-offset: 4px; padding: 0; }
+*/
+/* Tarjetas genéricas (columna, image-box, icon-box) ---------------------- */
+.pnc-card-box {
+  background: var(--pnc-white); border: 1px solid var(--pnc-border);
+  border-radius: var(--pnc-radius-xl); padding: var(--pnc-space-5);
+  transition: all var(--pnc-dur) var(--pnc-ease);
+}
+.pnc-card-box:hover { border-color: var(--pnc-sage-line); box-shadow: var(--pnc-shadow-lift); transform: translateY(-2px); }
+.pnc-card-flat { background: var(--pnc-white); border: 1px solid var(--pnc-border); border-radius: var(--pnc-radius-xl); padding: var(--pnc-space-5); }
+.pnc-media-round img { border-radius: var(--pnc-radius-xl); }
+.pnc-media-zoom img { transition: transform 400ms var(--pnc-ease); }
+.pnc-media-zoom:hover img { transform: scale(1.03); }
+
+/* Tarjeta de categoría (imagen + título encima) -------------------------- */
+.pnc-cat-card { position: relative; border-radius: var(--pnc-radius-xl); overflow: hidden; display: block; background: var(--pnc-cream); }
+.pnc-cat-card img { width: 100%; display: block; transition: transform 500ms var(--pnc-ease); }
+.pnc-cat-card:hover img { transform: scale(1.04); }
+.pnc-cat-card .pnc-cat-card__label {
+  position: absolute; left: 16px; bottom: 16px;
+  background: var(--pnc-white); color: var(--pnc-green-dark);
+  border-radius: var(--pnc-radius-pill); padding: 8px 18px;
+  font-size: var(--pnc-fs-sm); font-weight: var(--pnc-fw-medium);
+  box-shadow: var(--pnc-shadow-soft);
+}
+
+/* Iconos de línea fina --------------------------------------------------- */
+.pnc-icon .elementor-icon { color: var(--pnc-sage-active); border: 1px solid var(--pnc-sage-line); border-radius: 50%; padding: 14px; }
+.pnc-icon .elementor-icon svg { stroke-width: 1.25; }
+
+/* Bloque de consejo farmacéutico ---------------------------------------- */
+.pnc-advice {
+  background: var(--pnc-white); border: 1px solid var(--pnc-sage-line);
+  border-radius: var(--pnc-radius-xl); padding: var(--pnc-space-7);
+}
+.pnc-advice .pnc-eyebrow { color: var(--pnc-sage-active); }
+
+/* Slider / carrusel ------------------------------------------------------ */
+.pnc-slider .swiper-pagination-bullet { background: var(--pnc-sage-line); opacity: 1; }
+.pnc-slider .swiper-pagination-bullet-active { background: var(--pnc-sage); }
+.pnc-slider .swiper-button-next, .pnc-slider .swiper-button-prev {
+  width: 44px; height: 44px; border-radius: 50%; background: var(--pnc-white);
+  border: 1px solid var(--pnc-border); color: var(--pnc-green-dark); box-shadow: var(--pnc-shadow-soft);
+}
+.pnc-slider .swiper-button-next::after, .pnc-slider .swiper-button-prev::after { font-size: 14px; }
+
+/* Pestañas y acordeones -------------------------------------------------- */
+.pnc-tabs .elementor-tab-title { font-family: var(--pnc-font-body); font-weight: var(--pnc-fw-medium); color: var(--pnc-text-muted); border-bottom: 2px solid transparent; }
+.pnc-tabs .elementor-tab-title.elementor-active { color: var(--pnc-green-dark); border-bottom-color: var(--pnc-sage); }
+.pnc-accordion .elementor-accordion-item { border: 0; border-bottom: 1px solid var(--pnc-border); }
+.pnc-accordion .elementor-tab-title { padding: var(--pnc-space-4) 0; color: var(--pnc-green-dark); font-weight: var(--pnc-fw-medium); background: transparent; }
+.pnc-accordion .elementor-tab-content { border: 0; padding: 0 0 var(--pnc-space-4); color: var(--pnc-text-muted); }
+
+/* Formularios en widgets ------------------------------------------------- */
+.pnc-form input, .pnc-form textarea, .pnc-form select {
+  border: 1px solid var(--pnc-border); border-radius: var(--pnc-radius-md);
+  padding: 12px 16px; font-family: var(--pnc-font-body); color: var(--pnc-text); background: var(--pnc-white);
+}
+.pnc-form input:focus, .pnc-form textarea:focus { border-color: var(--pnc-sage); box-shadow: 0 0 0 3px rgba(156,175,136,.22); outline: none; }
+.pnc-form-inline input[type="email"] { border-radius: var(--pnc-radius-pill); }
+
+/* Rejillas rápidas ------------------------------------------------------- */
+.pnc-grid-2, .pnc-grid-3, .pnc-grid-4 { display: grid; gap: var(--pnc-space-5); }
+.pnc-grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.pnc-grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.pnc-grid-4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
+@media (max-width: 991.98px) { .pnc-grid-3, .pnc-grid-4 { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 575.98px) { .pnc-grid-2, .pnc-grid-3, .pnc-grid-4 { grid-template-columns: 1fr; } }
+
+/* Animación de entrada suave -------------------------------------------- */
+.pnc-fade-up { opacity: 0; transform: translateY(14px); transition: opacity 600ms var(--pnc-ease), transform 600ms var(--pnc-ease); }
+.pnc-fade-up.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .pnc-fade-up { opacity: 1; transform: none; transition: none; } }
+
+/*
+ * Bloque de resultados de búsqueda
+ */
+/* jQuery UI aplica padding:2px a todo el <ul class="ui-menu"> (el panel de
+   resultados), así que esta fila queda con ese hueco por los lados/abajo.
+   Lo contrarrestamos con márgenes negativos para que llegue al borde real
+   del panel, y recortamos con overflow:hidden para que no sobresalga de
+   las esquinas redondeadas del panel. */
+.elementor-search__products {
+  overflow: hidden;
+}
+
+.pnc-search-view-all {
+  margin: 8px -8px -8px -8px;
+  border-top: 1px solid var(--pnc-border);
+}
+
+.pnc-search-view-all__btn {
+  display: block;
+  width: 100%;
+  padding: 18px 20px 18px 20px!important;
+  text-align: left;
+  font-size: var(--pnc-fs-h6)!important;
+  color: var(--pnc-text-muted)!important;
+  background: transparent!important;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.pnc-search-view-all__btn:hover {
+  color: var(--pnc-sage)!important;
+  background: transparent!important;
+}
+
+/* El desplegable de resultados (.elementor-search__products, jQuery UI)
+   flota con position:absolute; este aviso debe hacer lo mismo para no
+   quedarse metido en la fila del buscador. */
+.elementor-search {
+  position: relative;
+}
+
+.pnc-search-no-results {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.pnc-search-no-results.is-visible {
+  display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box;
+  color: var(--pnc-text-muted);
+  padding: 18px;
+  margin-top: 10px;
+  font-size: var(--pnc-fs-xs);
+  font-weight: var(--pnc-fw-regular);
+  background: var(--pnc-bg);
+  border: 1px solid var(--pnc-border);
+  border-radius: var(--pnc-radius-xl);
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+  overflow: visible !important;
+  z-index: 9999;
+}

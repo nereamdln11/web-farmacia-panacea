@@ -1,0 +1,154 @@
+/* =========================================================
+   CONTENEDOR GENERAL DEL SIDEBAR (categorías + filtros)
+   ========================================================= */
+.ps_categorytree.category-tree.left-block,
+#search-filters-wrapper {
+  border: 1px solid var(--pnc-border);
+  border-radius: var(--pnc-radius-xl);
+  background: var(--pnc-white);
+  padding: var(--pnc-space-5, 24px);
+}
+
+/* =========================================================
+   TÍTULOS DE SECCIÓN ("Categorías", "Filtrar por", "Marca"...)
+   ========================================================= */
+.left-block__title,
+.search-filters-title,
+.search-filters-subtitle .accordion-button {
+  font-family: var(--pnc-font-body);
+  font-size: 11px;
+  font-weight: var(--pnc-fw-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--pnc-eyebrow);
+  padding: 0;
+  margin-bottom: var(--pnc-space-3, 12px);
+}
+
+.left-block__title__link {
+  color: var(--pnc-eyebrow);
+  text-decoration: none;
+}
+
+.search-filters-subtitle .accordion-button::after {
+  display: none;
+}
+
+/* =========================================================
+   ÁRBOL DE CATEGORÍAS — lista limpia
+   ========================================================= */
+.category-tree__list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.category-tree__item__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.category-tree__item__link {
+  display: block;
+  padding: 6px 0;
+  font-family: var(--pnc-font-body);
+  font-size: 14px;
+  color: var(--pnc-grey);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.category-tree__item__link:hover {
+  color: var(--pnc-green-dark);
+}
+
+/* Categoría actualmente activa — CONFIRMA el nombre real de esta
+   clase en DevTools navegando a una categoría concreta */
+.category-tree__item--active > .category-tree__item__header .category-tree__item__link,
+.category-tree__item.active > .category-tree__item__header .category-tree__item__link {
+  font-weight: var(--pnc-fw-medium);
+  color: var(--pnc-green-dark);
+}
+
+.category-tree__list[data-depth="1"] {
+  padding-left: 12px;
+}
+
+.category-tree__item__header .accordion-button {
+  width: 20px;
+  height: 20px;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* =========================================================
+   FACETAS (Marca, Línea, Categorías del filtro) — esconder
+   checkbox nativo, que se vea como enlace limpio
+   ========================================================= */
+.search-filters .form-check {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-filters .form-check-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.search-filters-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 5px 8px;
+  border-radius: var(--pnc-radius-lg, 8px);
+  font-family: var(--pnc-font-body);
+  font-size: 14px;
+  color: var(--pnc-grey) !important;
+  text-decoration: none !important;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.search-filters-link:hover {
+  color: var(--pnc-green-dark) !important;
+  background: var(--pnc-sage-soft);
+}
+
+/* Filtro marcado: chip con fondo suave, como pide el token */
+.form-check:has(.form-check-input:checked) .search-filters-link {
+  color: var(--pnc-green-dark) !important;
+  font-weight: var(--pnc-fw-medium);
+  background: var(--pnc-sage-soft);
+}
+
+.search-filters-link .magnitude {
+  color: var(--pnc-eyebrow);
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+.facet.accordion-item hr {
+  display: none;
+}
+
+/* =========================================================
+   SLIDER DE PRECIO
+   ========================================================= */
+.noUi-connect {
+  background: var(--pnc-sage) !important;
+}
+
+.noUi-handle {
+  border-color: var(--pnc-sage-active) !important;
+  box-shadow: none !important;
+}
+
+.js-faceted-values {
+  font-family: var(--pnc-font-body);
+  font-size: 12px;
+  color: var(--pnc-eyebrow);
+}

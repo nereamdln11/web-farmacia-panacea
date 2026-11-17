@@ -1,0 +1,5 @@
+/* global/_breakpoints.css */
+@custom-media --bp-sm (min-width: 576px);
+@custom-media --bp-md (min-width: 768px);
+@custom-media --bp-lg (min-width: 992px);
+@custom-media --bp-xl (min-width: 1200px);

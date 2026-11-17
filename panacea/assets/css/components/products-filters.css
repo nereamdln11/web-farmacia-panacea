@@ -1,0 +1,281 @@
+.pnc-container-filters { border-radius: 24px; border: 1px solid var(--pnc-border); padding: 20px; } 
+/*ESPACIO ENTRE FILTROS*/ 
+.pnc-filters .elementor-field-group { margin-bottom: 10px; } 
+.pnc-filters .elementor-field-group:last-child { margin-bottom: 0; }
+/* =========================================================
+   CHECKBOXES
+   ========================================================= */
+
+/* Cada opción */
+.pnc-filters .elementor-field-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+/* Checkbox */
+.pnc-filters .ce-checkbox {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+
+    background: #ffffff !important;
+    border: 1px solid var(--pnc-border) !important;
+    border-radius: .25rem;
+
+    color: transparent !important;
+    font-size: 12px;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+/* Checkbox seleccionado */
+.pnc-filters .elementor-field-option[aria-checked="true"] .ce-checkbox,
+.pnc-filters .elementor-field-option input:checked ~ .ce-checkbox {
+    background: var(--pnc-sage) !important;
+    border-color: var(--pnc-border) !important;
+    color: var(--pnc-white) !important;
+}
+
+/* ✓ blanco */
+.pnc-filters .elementor-field-option[aria-checked="true"] .ce-checkbox::before,
+.pnc-filters .elementor-field-option input:checked ~ .ce-checkbox::before {
+    color: var(--pnc-white) !important;
+}
+
+/* Texto de las opciones */
+.pnc-filters .elementor-field-option .elementor-field-label {
+    color: var(--pnc-green-dark) !important;
+}
+
+/* Hover */
+.pnc-filters .elementor-field-option:hover .ce-checkbox {
+    border-color: var(--pnc-sage-active) !important;
+}
+
+
+
+/* =========================================================
+   SLIDER DE PRECIO
+   ========================================================= */
+
+/* Contenedor */
+.pnc-filters .ce-dual-range {
+    position: relative;
+    height: 6px;
+    margin: 16px 0 10px;
+    background: #e5e5e5;
+    border-radius: var(--pnc-radius-pill);
+}
+
+
+/* =========================================================
+   RANGO SELECCIONADO
+   ========================================================= */
+
+.pnc-filters .ce-dual-range__selected {
+    height: 6px;
+    background: var(--pnc-sage)!important;
+    border-radius: 0;
+}
+
+
+/* =========================================================
+   INPUTS DEL SLIDER
+   ========================================================= */
+
+.pnc-filters .ce-dual-range input[type="range"] {
+    height: 4px;
+    background: transparent;
+}
+
+
+/* =========================================================
+   TIRADORES — CHROME / EDGE / SAFARI
+   ========================================================= */
+
+.pnc-filters .ce-dual-range input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+
+    width: 25px;
+    height: 20px;
+
+    background: #ffffff;
+    border: 1px solid var(--pnc-border);
+    border-radius: 50%;
+
+    box-shadow: none;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   TIRADORES — FIREFOX
+   ========================================================= */
+
+.pnc-filters .ce-dual-range input[type="range"]::-moz-range-thumb {
+    width: 25px;
+    height: 20px;
+
+    background: #ffffff;
+    border: 1px solid #bdbdbd;
+    border-radius: 50%;
+
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.pnc-filters .elementor-field-label span {
+    color: var(--pnc-grey) !important;
+}
+
+
+
+
+/* ==========================================
+   FILTROS ACTIVOS
+   ========================================== */
+
+/* Filtros individuales */
+.ce-active-filters .elementor-button-wrapper > a:not(.ce-active-filters__clear) {
+    background: var(--pnc-cream) !important;
+    border: 1px solid var(--pnc-border) !important;
+    border-radius: var(--pnc-radius-pill) !important;
+    color: var(--pnc-sage-active) !important;
+}
+
+/* Texto e icono de los filtros */
+.ce-active-filters a:not(.ce-active-filters__clear),
+.ce-active-filters a:not(.ce-active-filters__clear) * {
+    color: oklch(35.99% 0.02843 141.164 / 0.65) !important;
+    font-weight: 500 !important;
+}
+
+/* ==========================================
+   BOTÓN BORRAR TODO
+   ========================================== */
+
+.ce-active-filters .elementor-button-wrapper > a.ce-active-filters__clear {
+    background: var(--pnc-white) !important;
+    border: 1px solid var(--pnc-border) !important;
+    border-radius: var(--pnc-radius-pill) !important;
+    color: var(--pnc-green-dark) !important;
+}
+
+/* Texto e icono de borrar todo */
+.ce-active-filters .ce-active-filters__clear,
+.ce-active-filters .ce-active-filters__clear * {
+    color: var(--pnc-green-dark) !important;
+    font-weight: 500 !important;
+}
+
+
+
+/* ==========================================
+   HOVER DE TODOS LOS FILTROS ACTIVOS
+   ========================================== */
+
+/* Fondo y borde del botón */
+.ce-active-filters .elementor-button-wrapper > a:hover {
+    background: var(--pnc-white) !important;
+    border-color: var(--pnc-sage) !important;
+    color: var(--pnc-sage) !important;
+}
+
+/* Elementos internos: sin fondo */
+.ce-active-filters .elementor-button-wrapper > a:hover *,
+.ce-active-filters .elementor-button-wrapper > a:hover .elementor-button-content-wrapper {
+    background: transparent !important;
+    border-color: transparent !important;
+    color: var(--pnc-sage) !important;
+}
+
+
+/* Botón que abre el desplegable *
+.pnc-filters .ce-filters__toggle {
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* Enlace del botón *
+.pnc-filters .ce-filters__toggle > a.elementor-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--pnc-white) !important;
+    border: 1px solid var(--pnc-border) !important;
+    border-radius: 24px !important;
+    color: var(--pnc-green-dark) !important;
+    box-shadow: none !important;
+    padding: 10px 16px !important;
+}
+
+/* Texto e icono *
+.pnc-filters .ce-filters__toggle > a.elementor-button * {
+    color: var(--pnc-green-dark) !important;
+}
+
+/* Hover *
+.pnc-filters .ce-filters__toggle > a.elementor-button:hover {
+    background: var(--pnc-white) !important;
+    border-color: var(--pnc-sage) !important;
+}
+
+.pnc-filters .ce-filters__toggle > a.elementor-button:hover * {
+    color: var(--pnc-sage-active) !important;
+}
+.pnc-filters .ce-filters__toggle,
+.pnc-filters .ce-filters__toggle > a.elementor-button,
+.pnc-filters .ce-filters__toggle .elementor-button-text {
+    text-transform: none !important;
+}
+*/
+/* Botón que abre el desplegable */
+.pnc-filters .ce-filters__toggle {
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* Enlace del botón */
+.pnc-filters .ce-filters__toggle > a.elementor-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--pnc-cream) !important;
+    border: 1px solid var(--pnc-border) !important;
+    border-radius: 24px !important;
+    color: var(--pnc-green-dark) !important;
+    box-shadow: none !important;
+    padding: 10px 16px !important;
+    text-transform: none !important;
+}
+
+/* Texto e icono: respetar mayúsculas y minúsculas */
+.pnc-filters .ce-filters__toggle .elementor-button-text,
+.pnc-filters .ce-filters__toggle .elementor-button-icon {
+    color: var(--pnc-green-dark) !important;
+    text-transform: none !important;
+}
+
+/* Hover */
+.pnc-filters .ce-filters__toggle > a.elementor-button:hover {
+    background: var(--pnc-white) !important;
+    border-color: var(--pnc-sage) !important;
+}
+
+.pnc-filters .ce-filters__toggle > a.elementor-button:hover * {
+    color: var(--pnc-sage-active) !important;
+}

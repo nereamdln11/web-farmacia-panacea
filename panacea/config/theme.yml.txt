@@ -1,0 +1,55 @@
+name: panacea
+display_name: Farmacia Panacea
+version: 1.0.0
+author:
+  name: "Farmacia Panacea"
+  email: "info@lafarmaciadepanacea.com"
+  url: "https://www.lafarmaciadepanacea.com"
+
+parent: hummingbird
+
+meta:
+  compatibility:
+    from: 9.0.0
+    to: ~
+  available_layouts:
+    layout-full-width:
+      name: Full Width
+      description: No side columns, ideal for distraction free pages
+    layout-both-columns:
+      name: Three Columns
+      description: Two side columns
+    layout-left-column:
+      name: Two Columns, small left column
+    layout-right-column:
+      name: Two Columns, small right column
+
+assets:
+  use_parent_assets: true
+  css:
+    all:
+      - id: panacea-fonts
+        path: assets/css/fonts.css
+        media: all
+        priority: 200
+      - id: panacea-tokens
+        path: assets/css/tokens.css
+        media: all
+        priority: 210
+      - id: panacea-theme
+        path: assets/css/custom.css
+        media: all
+        priority: 220
+      - id: panacea-creative-elements
+        path: assets/css/creative-elements.css
+        media: all
+        priority: 230
+      - id: panacea-megamenu
+        path: assets/css/megamenu.css
+        media: all
+        priority: 240
+  js:
+    bottom:
+      - id: panacea-js
+        path: assets/js/custom.js
+        priority: 200

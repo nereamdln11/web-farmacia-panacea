@@ -1,0 +1,23 @@
+/* Farmacia Panacea — tipografías
+   Outfit (cuerpo) + Cormorant Garamond (titulares), ambas gratuitas en Google Fonts.
+   Si en el futuro compras la licencia de Penumbra Sans Std, sube los .woff2 a
+   assets/fonts/, descomenta el bloque @font-face y ponla primera en
+   --pnc-font-display (tokens.css).
+   Alternativa gratuita con aire griego: 'Marcellus' o 'Julius Sans One'. */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+
+/*
+@font-face {
+  font-family: 'Penumbra Sans Std';
+  src: url('../fonts/PenumbraSansStd-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Penumbra Sans Std';
+  src: url('../fonts/PenumbraSansStd-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+*/

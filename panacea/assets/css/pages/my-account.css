@@ -1,0 +1,241 @@
+/* =========================================================
+   PANACEA · MI CUENTA
+   Diseño visual inspirado en Lovable
+   ========================================================= */
+
+/* Contenedor de la página */
+body#my-account #content-wrapper,
+body.page-my-account #content-wrapper {
+  max-width: 1320px;
+  margin-inline: auto;
+}
+
+/* Separación y distribución principal */
+body#my-account #content-wrapper > .row,
+body.page-my-account #content-wrapper > .row {
+  --bs-gutter-x: 2.5rem;
+  row-gap: 2rem;
+}
+
+/* Saludo */
+body#my-account .page-header,
+body.page-my-account .page-header {
+  margin: 0 0 2rem;
+  padding: 0;
+  border: 0;
+}
+
+body#my-account .page-header h1,
+body.page-my-account .page-header h1 {
+  margin: 0;
+  color: #263329;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+/* Menú lateral */
+body#my-account .account-menu,
+body.page-my-account .account-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.25rem;
+  background: #fff;
+  border: 1px solid #e7e9e3;
+  border-radius: 24px;
+}
+
+body#my-account .account-menu__title,
+body.page-my-account .account-menu__title {
+  margin: 0 0 0.75rem !important;
+  padding: 0 0.75rem;
+  color: #6b6f69;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Enlaces del menú lateral */
+body#my-account .account-menu > a,
+body.page-my-account .account-menu > a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 46px;
+  padding: 0.75rem;
+  color: #6b6f69;
+  background: transparent;
+  border: 0;
+  border-radius: 14px;
+  text-decoration: none;
+  transition: color 180ms ease, background-color 180ms ease;
+}
+
+body#my-account .account-menu > a .link-item,
+body.page-my-account .account-menu > a .link-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+body#my-account .account-menu > a .material-icons,
+body.page-my-account .account-menu > a .material-icons {
+  flex: 0 0 20px;
+  width: 20px;
+  font-size: 20px;
+  line-height: 1;
+  text-align: center;
+}
+
+/* Hover del menú */
+body#my-account .account-menu > a:hover,
+body.page-my-account .account-menu > a:hover {
+  color: #435342;
+  background: #eef2e9;
+}
+
+/* Cerrar sesión */
+body#my-account .account-menu > .account-menu--signout,
+body.page-my-account .account-menu > .account-menu--signout {
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  color: #6b6f69;
+  border-top: 1px solid #e7e9e3;
+  border-radius: 0;
+}
+
+body#my-account .account-menu > .account-menu--signout:hover,
+body.page-my-account .account-menu > .account-menu--signout:hover {
+  color: #435342;
+  background: transparent;
+}
+
+/* Área de contenido */
+body#my-account #content.page-content,
+body.page-my-account #content.page-content {
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+/* Tarjetas de accesos */
+body#my-account .customer-link,
+body.page-my-account .customer-link {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+}
+
+/* Enlaces estándar y enlaces insertados por módulos */
+body#my-account .customer-link > a,
+body.page-my-account .customer-link > a {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 100px;
+  padding: 1.35rem;
+  color: #435342;
+  background: #fff;
+  border: 1px solid #e7e9e3;
+  border-radius: 22px;
+  text-decoration: none;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+/* Neutraliza las columnas Bootstrap de los enlaces */
+body#my-account .customer-link > a[class*="col-"],
+body.page-my-account .customer-link > a[class*="col-"] {
+  width: auto;
+  max-width: none;
+  flex: initial;
+}
+
+body#my-account .customer-link > a .link-item,
+body.page-my-account .customer-link > a .link-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+body#my-account .customer-link > a .material-icons,
+body.page-my-account .customer-link > a .material-icons {
+  flex: 0 0 24px;
+  width: 24px;
+  color: #7d9169;
+  font-size: 24px;
+  text-align: center;
+}
+
+/* Hover de las tarjetas */
+body#my-account .customer-link > a:hover,
+body.page-my-account .customer-link > a:hover {
+  color: #435342;
+  background: #f7f8f5;
+  border-color: #9caf88;
+  transform: translateY(-2px);
+}
+
+/* Cerrar sesión en móvil */
+body#my-account .customer-link__logout,
+body.page-my-account .customer-link__logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0.9rem 1.25rem;
+  color: #6b6f69;
+  background: #fff;
+  border: 1px solid #e7e9e3;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+/* Tablet y móvil */
+@media (max-width: 767.98px) {
+  body#my-account #content-wrapper > .row,
+  body.page-my-account #content-wrapper > .row {
+    --bs-gutter-x: 0;
+    row-gap: 1.5rem;
+  }
+
+  body#my-account .page-header,
+  body.page-my-account .page-header {
+    margin-bottom: 1.5rem;
+  }
+
+  body#my-account .customer-link,
+  body.page-my-account .customer-link {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  body#my-account .customer-link > a,
+  body.page-my-account .customer-link > a {
+    min-height: 76px;
+    padding: 1rem 1.15rem;
+    border-radius: 18px;
+  }
+}
+
+/* Escritorio: deja que las tarjetas respiren */
+@media (min-width: 768px) {
+  body#my-account .customer-link,
+  body.page-my-account .customer-link {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

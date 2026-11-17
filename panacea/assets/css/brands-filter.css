@@ -1,0 +1,128 @@
+/* --- Utilidad --- */
+.pnc-brands-tools .sr-only{
+position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+
+/* --- Buscador --- */
+.pnc-brands-search{position:relative;max-width:420px;}
+.pnc-brands-search__icon{
+position:absolute;left:16px;top:50%;transform:translateY(-50%);
+color:var(--pnc-grey);display:flex;pointer-events:none;
+}
+.pnc-brands-search input{
+height:48px;width:100%;border:1px solid var(--pnc-border);border-radius:999px;
+background:#FFFFFF;padding:0 18px 0 44px;
+font-family:'Outfit',sans-serif;font-size:14px;color:var(--pnc-green-dark);
+}
+.pnc-brands-search input::placeholder{color:var(--pnc-grey);}
+.pnc-brands-search input:focus{
+outline:none;border-color:var(--pnc-sage);box-shadow:0 0 0 4px rgba(156,175,136,.18);
+}
+.pnc-brands-search input::-webkit-search-cancel-button{cursor:pointer;}
+
+/* --- Abecedario --- */
+.pnc-brands-alpha{
+display:flex;flex-wrap:wrap;gap:6px;margin-top:28px;
+}
+.pnc-alpha{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:0;
+  box-sizing:border-box;
+  height:36px;min-width:36px;padding:0 12px;border-radius:999px;
+  border:1px solid var(--pnc-border);background:#FFFFFF;color:var(--pnc-green-dark);
+  font-family:'Outfit',sans-serif;font-size:12px;line-height:1;
+  -webkit-appearance:none;appearance:none;
+  -webkit-tap-highlight-color:transparent;
+  cursor:pointer;
+  transition:background-color .2s ease, border-color .2s ease, color .1s ease;
+}
+.pnc-alpha:focus-visible{
+  outline:2px solid var(--pnc-sage);
+  outline-offset:2px;
+}
+.pnc-alpha:hover:not(:disabled){border-color:var(--pnc-sage);color:var(--pnc-sage);}
+.pnc-alpha.is-active{background:var(--pnc-sage);border-color:var(--pnc-sage);color:#FFFFFF;}
+.pnc-alpha.is-active:hover{
+  background:var(--pnc-sage);
+  border-color:var(--pnc-border);
+  color:#FFFFFF;
+}
+.pnc-alpha.is-disabled,
+.pnc-alpha:disabled{
+border-color:transparent;background:transparent;
+color:rgba(107,111,105,.35);cursor:default;
+}
+
+/* --- Contador y vacío --- */
+.pnc-brands-count{margin-top:20px;font-size:13px;color:var(--pnc-grey);}
+.pnc-brands-empty{
+margin-top:32px;padding:40px 24px;text-align:center;
+border:1px solid var(--pnc-border);border-radius:24px;background:var(--pnc-cream);
+}
+.pnc-brands-empty p{margin:0 0 20px;font-size:14px;color:var(--pnc-grey);}
+.pnc-brands-reset{
+height:44px;padding:0 26px;border:0;border-radius:999px;
+background:var(--pnc-sage);color:#FFFFFF;font-family:'Outfit',sans-serif;
+font-size:14px;cursor:pointer;transition:opacity .2s;
+}
+.pnc-brands-reset:hover{opacity:.9;}
+
+/* --- Ocultación de ítems --- */
+.ce-articles .is-hidden{display:none !important;}
+.ce-articles.is-empty{display:none !important;}
+
+/* --- Móvil: tira alfabética deslizable --- */
+@media (max-width:767px){
+.pnc-brands-alpha{
+flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;
+scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;
+  }
+.pnc-brands-alpha::-webkit-scrollbar{display:none;}
+.pnc-alpha{flex:0 0 auto;scroll-snap-align:center;}
+.pnc-brands-search{
+    
+    position:relative;
+    max-width:100%;
+    height:48px;
+    align-self:flex-start;
+}
+}
+
+.pnc-article-lines{
+  display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;
+}
+a.pnc-line-chip{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:var(--pnc-radius-pill);
+  border:1px solid var(--pnc-border);
+  background-color:var(--pnc-cream)!important;
+  color:var(--pnc-green-dark)!important ;
+  font-family:var(--pnc-font-body);
+  font-size:var(--pnc-fs-h6);
+  line-height:1;
+}
+/* a.pnc-line-chip:hover{
+  border-color:1px solid var(--pnc-sage)!important;
+  background-color:var(--pnc-white)!important;
+  color:var(--pnc-sage)!important ;
+} */
+a.pnc-line-chip.is-match{
+    border-color:1px solid var(--pnc-sage)!important;
+  background-color:var(--pnc-white)!important;
+  color:var(--pnc-sage)!important ;
+}
+/* a.pnc-line-chip.is-match:hover{
+  border-color:1px solid var(--pnc-sage)!important;
+  background-color:var(--pnc-white)!important;
+  color:var(--pnc-sage)!important ;
+} */
+
+.pnc-line-more{
+  display:inline-flex;align-items:center;padding:4px 10px;
+  font-family:var(--pnc-font-body);font-size:var(--pnc-fs-h6);line-height:1;
+  color:var(--pnc-sage);text-decoration:underline;text-underline-offset:2px;
+}

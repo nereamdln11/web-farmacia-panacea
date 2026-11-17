@@ -1,0 +1,597 @@
+/* =========================================================
+   HEADER — Panacea
+   Overrides de Creative Elements para la cabecera del sitio.
+   ========================================================= */
+/* El tema base (hummingbird) fija el sticky con la CLASE .header, no con
+   la etiqueta <header>. Una clase (0-1-0) siempre gana a un selector de
+   etiqueta (0-0-1) aunque este último lleve !important, así que había
+   que sobreescribir .header, no header, para que esto funcionase. */
+
+/* Alto exacto de la barra superior (se usa en la barra y en el sticky) */
+.header {
+  --pnc-topbar-h: 32px;
+}
+/* Solo en móvil: header fijo al hacer scroll SIN la barra superior. El
+   header entero se desplaza hacia arriba lo que mide la barra (top negativo)
+   y a partir de ahí se queda fijo. Arriba del todo de la página la barra se
+   ve; al bajar, desaparece y solo queda fijo el resto.
+   En tablet y escritorio el header queda fijo completo, barra incluida. */
+@media (max-width: 480px) {
+  .header {
+    top: calc(-1 * var(--pnc-topbar-h));
+  }
+}
+
+/* ---------------------------------------------------------
+   1. Barra superior
+   Clase en la SECCIÓN: "pnc-hdr-topbar"
+   Diseño: fondo verde oscuro, texto blanco centrado, 11px (12px
+   desde tablet), mayúsculas con espaciado, alto fijo de 32px
+   (--pnc-topbar-h, ver .header arriba) y siempre en una sola línea.
+   Para que mande este CSS, en el editor deja vacíos el fondo de la
+   sección y la tipografía/color del widget de texto.
+   --------------------------------------------------------- */
+.pnc-hdr-topbar {
+  height: var(--pnc-topbar-h, 32px);
+  overflow: hidden;
+  background-color: var(--pnc-green-dark-banner);
+}
+/* Sin el padding de 10px de la columna de CE: el alto lo marca el texto */
+.pnc-hdr-topbar > .elementor-container > .elementor-row > .elementor-column > .elementor-element-populated {
+  padding: 0;
+}
+.pnc-hdr-topbar .elementor-widget-text-editor,
+.pnc-hdr-topbar .elementor-widget-text-editor p {
+  margin: 0;
+  padding: 0 var(--pnc-space-4);
+  overflow: hidden;
+  font-family: var(--pnc-font-body);
+  font-size: var(--pnc-fs-h6);              /* 11px */
+  font-weight: var(--pnc-fw-regular);
+  line-height: var(--pnc-topbar-h, 32px);   /* centra el texto en vertical */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  letter-spacing: .14em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--pnc-white);
+}
+.pnc-hdr-topbar .elementor-widget-text-editor p {
+  padding: 0;                               /* el padding va en el widget */
+}
+.pnc-hdr-topbar .elementor-widget-text-editor a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+@media (min-width: 768px) {
+  .pnc-hdr-topbar .elementor-widget-text-editor,
+  .pnc-hdr-topbar .elementor-widget-text-editor p {
+    font-size: var(--pnc-fs-xs);            /* 12px */
+  }
+}
+
+/* Copia del texto: la barra lleva DOS widgets de texto con la misma frase.
+   El segundo solo se usa en la marquesina del móvil. */
+.pnc-hdr-topbar .elementor-widget-text-editor + .elementor-widget-text-editor {
+  display: none;
+}
+
+/* Móvil: el texto se desplaza de derecha a izquierda sin fin (marquesina).
+   Se mueve la fila de los dos widgets: cuando la primera frase ha salido,
+   la segunda ocupa exactamente su sitio y el reinicio no se nota.
+   Cada vuelta empieza con la frase quieta un momento, para que se lea
+   el principio, y después se desplaza.
+   - Duración de cada vuelta: --pnc-topbar-speed (más segundos = más lento).
+     El primer 20% de la vuelta es la pausa.
+   - Separación entre repeticiones: --pnc-topbar-gap.
+   - Se detiene al tocarlo/pasar el ratón por encima.
+   - Con "reducir movimiento" activado en el sistema no se anima.
+   - Solo por debajo de 640px: la frase mide unos 600px, así que en
+     pantallas más anchas cabe entera (se muestra quieta y centrada) y,
+     además, dos copias no llegarían a llenar la barra y se vería el corte.
+     Si cambias el texto por uno más largo o más corto, ajusta este valor. */
+@media (max-width: 640px) and (prefers-reduced-motion: no-preference) {
+  .pnc-hdr-topbar {
+    --pnc-topbar-speed: 8s;
+    --pnc-topbar-gap: 48px;
+  }
+  .pnc-hdr-topbar .elementor-column .elementor-column-wrap {
+    overflow: hidden;
+  }
+  .pnc-hdr-topbar .elementor-column .elementor-column-wrap > .elementor-widget-wrap {
+    flex-wrap: nowrap;
+    gap: 0;                                 /* sin hueco extra: las dos mitades iguales */
+    width: max-content;
+    animation: pnc-topbar-marquee var(--pnc-topbar-speed) linear infinite;
+  }
+  .pnc-hdr-topbar .elementor-widget-text-editor,
+  .pnc-hdr-topbar .elementor-widget-text-editor + .elementor-widget-text-editor {
+    display: block;
+    flex: none;
+    width: auto;
+    margin: 0;
+    padding-left: var(--pnc-space-4);       /* la frase no empieza pegada al borde */
+    padding-right: calc(var(--pnc-topbar-gap) - var(--pnc-space-4));
+    white-space: nowrap;
+    text-align: left;
+  }
+  .pnc-hdr-topbar .elementor-column .elementor-column-wrap:hover > .elementor-widget-wrap,
+  .pnc-hdr-topbar .elementor-column .elementor-column-wrap:active > .elementor-widget-wrap {
+    animation-play-state: paused;
+  }
+}
+/* Se desplaza exactamente una frase (la mitad de la fila) */
+@keyframes pnc-topbar-marquee {
+  0%, 20% { transform: translateX(0); }      /* pausa: se lee el principio */
+  100%    { transform: translateX(-50%); }
+}
+
+/* ---------------------------------------------------------
+   2. Fila principal: hamburguesa, logo, buscador e iconos
+   Clases:
+     SECCIÓN                              → "pnc-hdr-main"
+     Widget Menú (hamburguesa, tablet/móvil) → "pnc-hdr-burger"
+     Widget Logo                          → "pnc-hdr-logo"
+     Widget Buscador AJAX                 → "pnc-hdr-search"
+     Widgets Usuario / Favoritos / Carrito→ "pnc-hdr-icon"
+   Diseño: 16px arriba y abajo; 16px entre bloques y 4px entre iconos;
+   iconos en botones redondos de 40px; buscador en píldora de 48px.
+   --------------------------------------------------------- */
+/* --pnc-hdr-gap: separación IGUAL entre todos los elementos de la fila
+   (logo, buscador, iconos…), sin depender de su orden. */
+.pnc-hdr-main {
+  --pnc-hdr-gap: var(--pnc-space-3);
+  background: var(--pnc-white);
+}
+/* Relleno: 16px arriba y abajo; a los lados el margen del tema
+   (--pnc-gutter, 24px) para que nada quede pegado al borde de la pantalla */
+/* Selectores reforzados (.elementor-column.elementor-element >
+   .elementor-column-wrap.elementor-element-populated) para ganar a los
+   valores de relleno, gap y ajuste de línea que Creative Elements genera por
+   ID desde el editor, sin necesidad de !important. */
+.pnc-hdr-main .elementor-column.elementor-element > .elementor-column-wrap.elementor-element-populated {
+  padding: var(--pnc-space-4) 0;
+}
+.pnc-hdr-main .elementor-column.elementor-element > .elementor-column-wrap > .elementor-widget-wrap.elementor-widget-wrap {
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--pnc-hdr-gap);
+}
+@media (max-width: 767px) {
+  .pnc-hdr-main {
+    --pnc-hdr-gap: var(--pnc-space-2);
+  }
+  .pnc-hdr-main .elementor-column.elementor-element > .elementor-column-wrap.elementor-element-populated {
+    padding: var(--pnc-space-3) var(--pnc-space-4);
+  }
+}
+
+/* Logo: alto fijo y el ancho sale de la proporción de la imagen, sin
+   deformarse nunca:
+   - flex: none → el widget no se encoge cuando falta sitio en la fila.
+   - max-width: none con selector reforzado → anula el "Ancho máximo" del
+     editor (200px / 60%), que encogía el ancho pero no el alto.
+   - object-fit: contain → aunque algo forzara la caja, la imagen no se estira. */
+.pnc-hdr-main .pnc-hdr-logo {
+  flex: none;
+  /* Empuja todo lo que va después (iconos) hacia la derecha. Con la barra
+     del buscador visible no se nota (el buscador ocupa ese espacio con
+     "Crecer"); sin ella (móvil), hamburguesa + logo quedan a la izquierda
+     y los iconos a la derecha. */
+  margin-right: auto;
+}
+.pnc-hdr-main .elementor-element.elementor-widget.pnc-hdr-logo .elementor-widget-container img {
+  display: block;
+  width: auto;
+  max-width: none;
+  height: 44px;
+  object-fit: contain;
+}
+@media (max-width: 767px) {
+  .pnc-hdr-main .elementor-element.elementor-widget.pnc-hdr-logo .elementor-widget-container img {
+    height: 34px;
+  }
+}
+
+/* Botones de icono: usuario, favoritos, carrito y lupa del buscador de móvil.
+   Círculo de 40px con el icono de 20px centrado exactamente.
+   Los !important de padding/margin/gap anulan los rellenos que Creative
+   Elements pone a estos elementos (p. ej. 13px 20px en el menú de usuario),
+   que eran los que descentraban el icono dentro del círculo. */
+.pnc-hdr-icon :is(.elementor-nav, .menu-item, .elementor-cart__toggle) {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.pnc-hdr-icon :is(a.elementor-item, a.elementor-icon, .elementor-cart__toggle a, .elementor-search__toggle) {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 20px;
+  line-height: 1 !important;
+  color: var(--pnc-text);
+  transition: background-color var(--pnc-dur) var(--pnc-ease), color var(--pnc-dur) var(--pnc-ease);
+}
+.pnc-hdr-icon :is(a.elementor-item, a.elementor-icon, .elementor-cart__toggle a, .elementor-search__toggle):hover,
+.pnc-hdr-icon :is(a.elementor-item, a.elementor-icon, .elementor-cart__toggle a, .elementor-search__toggle):focus-visible {
+  background: var(--pnc-cream) !important;   /* custom.css quita el fondo a todos los <a> */
+  color: var(--pnc-green-dark);
+}
+/* El icono: caja de 20x20 con el glifo centrado dentro */
+.pnc-hdr-icon :is(.elementor-item, .elementor-icon, .elementor-cart__toggle a, .elementor-search__toggle) :is(i, svg, .elementor-button-icon) {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 20px;
+  line-height: 1 !important;
+  color: inherit;
+}
+/* CE posiciona el dibujo del icono en absoluto (left: 50% + translate).
+   Se devuelve al flujo normal para que el centrado lo haga el flex. */
+.pnc-hdr-icon :is(.elementor-item, .elementor-icon, .elementor-cart__toggle a, .elementor-search__toggle) i::before {
+  position: static !important;
+  display: block;
+  line-height: 1;
+  transform: none !important;
+}
+/* Flechita de submenú del menú de usuario: descentraba el icono */
+.pnc-hdr-icon .sub-arrow {
+  display: none !important;
+}
+/* Sin la línea de "hover" del menú de usuario de CE */
+.pnc-hdr-icon .elementor-item::before,
+.pnc-hdr-icon .elementor-item::after {
+  display: none !important;
+}
+/* Estilo común de TODOS los iconos del header (mismo tamaño y color).
+   Anula el tamaño/color/relleno que cada widget trae del editor (Icono,
+   Carrito…), que Creative Elements aplica por ID de elemento. Si quieres
+   cambiar el color o el tamaño de los iconos, hazlo aquí, no en el editor. */
+.pnc-hdr-main .elementor-element.pnc-hdr-icon :is(a.elementor-icon, .elementor-cart__toggle a.elementor-button, .elementor-search__toggle, a.elementor-item) {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-size: 20px !important;
+  color: var(--pnc-text) !important;
+}
+.pnc-hdr-main .elementor-element.pnc-hdr-icon :is(a.elementor-icon, .elementor-cart__toggle a.elementor-button, .elementor-search__toggle, a.elementor-item):is(:hover, :focus-visible) {
+  background: var(--pnc-cream) !important;
+  color: var(--pnc-green-dark) !important;
+}
+.pnc-hdr-main .elementor-element.pnc-hdr-icon :is(a.elementor-icon, .elementor-cart__toggle a.elementor-button, .elementor-search__toggle, a.elementor-item) :is(i, svg, .elementor-button-icon) {
+  width: 20px !important;
+  height: 20px !important;
+  font-size: 20px !important;
+  color: inherit !important;
+  fill: currentColor;
+  transform: none !important;
+}
+.pnc-hdr-main .elementor-element.pnc-hdr-icon .elementor-cart__toggle .elementor-button-text {
+  color: inherit !important;
+}
+
+/* Carrito en tablet y escritorio: icono + importe en una píldora */
+@media (min-width: 768px) {
+  .pnc-hdr-icon .elementor-cart__toggle a:has(.elementor-button-text) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--pnc-space-2) !important;
+    width: auto;
+    padding: 0 var(--pnc-space-3) !important;
+    border-radius: var(--pnc-radius-pill);
+  }
+  .pnc-hdr-icon .elementor-cart__toggle .elementor-button-text {
+    font-family: var(--pnc-font-body);
+    font-size: var(--pnc-fs-sm);
+    font-weight: var(--pnc-fw-medium);
+    color: var(--pnc-text);
+  }
+}
+/* Carrito en móvil: solo el icono con la burbuja del número de productos */
+@media (max-width: 767px) {
+  .pnc-hdr-icon .elementor-cart__toggle .elementor-button-text {
+    display: none;
+  }
+}
+.pnc-hdr-icon .elementor-cart__toggle .elementor-button-icon {
+  position: relative;
+}
+.pnc-hdr-icon .elementor-cart__toggle .elementor-button-icon[data-counter]::before {
+  top: -6px !important;
+  right: -8px !important;
+  left: auto !important;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: var(--pnc-radius-pill);
+  background: var(--pnc-sage);
+  font-family: var(--pnc-font-body);
+  font-size: 10px;
+  font-weight: var(--pnc-fw-semibold);
+  line-height: 16px;
+  color: var(--pnc-white);
+}
+
+/* Buscador en el header: solo tamaño y posición de la lupa.
+   El aspecto (borde, foco, desplegable de resultados…) lo da el CSS propio
+   del buscador, que se usa también en otros sitios. Selector reforzado para
+   ganar al CSS personalizado del widget, que va por ID de elemento. */
+.pnc-hdr-main .elementor-widget.pnc-hdr-search .elementor-search .elementor-search__container {
+  display: flex;
+  align-items: center;
+  gap: var(--pnc-space-2);
+  box-sizing: border-box;
+  height: 48px;
+  padding: 0 var(--pnc-space-4);
+}
+.pnc-hdr-main .elementor-widget.pnc-hdr-search .elementor-search .elementor-search__icon {
+  flex: none;
+  min-width: 0;
+  padding: 0;
+  font-size: 15px;
+  color: var(--pnc-text-muted);
+}
+.pnc-hdr-main .elementor-widget.pnc-hdr-search .elementor-search .elementor-search__container > input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+/* Hamburguesa (solo tablet/móvil): mismo botón redondo de 40px */
+.pnc-hdr-burger .elementor-menu-toggle {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent !important;
+  font-size: 20px;
+  color: var(--pnc-text);
+}
+.pnc-hdr-burger .elementor-menu-toggle:hover {
+  background: var(--pnc-cream) !important;
+}
+
+/* Buscador de móvil (skin "Topbar"): la lupa es un botón de icono más
+   (clase pnc-hdr-icon). Al pulsarla, Creative Elements abre la barra de
+   búsqueda arriba; aquí solo se ajusta su campo al estilo del header. */
+.pnc-hdr-search-mobile .elementor-search__toggle {
+  border: 0;
+  cursor: pointer;
+}
+.pnc-hdr-search-mobile .elementor-search__container {
+  padding: var(--pnc-space-3) var(--pnc-space-4);
+  background: var(--pnc-white);
+}
+.pnc-hdr-search-mobile .elementor-search__input {
+  height: 44px;
+  padding: 0 var(--pnc-space-4);
+  border: 1px solid var(--pnc-border);
+  border-radius: var(--pnc-radius-pill);
+  font-family: var(--pnc-font-body);
+  font-size: 16px;                          /* 16px: evita el zoom automático de iOS */
+  color: var(--pnc-text);
+}
+
+/* ---------------------------------------------------------
+   2b. Atención farmacéutica: botón con desplegable (Llamar / WhatsApp)
+   Widget HTML con clase "pnc-hdr-contact-widget", solo en escritorio.
+   --------------------------------------------------------- */
+.pnc-hdr-contact {
+  position: relative;
+}
+.pnc-hdr-contact > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pnc-space-2);
+  padding: var(--pnc-space-2) var(--pnc-space-4);
+  border: 1px solid color-mix(in srgb, var(--pnc-sage) 40%, transparent);
+  border-radius: var(--pnc-radius-pill);
+  background: var(--pnc-sage-soft);
+  font-family: var(--pnc-font-body);
+  font-size: var(--pnc-fs-xs);
+  font-weight: var(--pnc-fw-medium);
+  line-height: 1.4;
+  color: var(--pnc-green-dark);
+  white-space: nowrap;
+  list-style: none;
+  cursor: pointer;
+  transition: background-color var(--pnc-dur) var(--pnc-ease), color var(--pnc-dur) var(--pnc-ease);
+}
+.pnc-hdr-contact > summary::-webkit-details-marker {
+  display: none;
+}
+.pnc-hdr-contact > summary:hover,
+.pnc-hdr-contact[open] > summary {
+  background: var(--pnc-sage);
+  color: var(--pnc-white);
+}
+.pnc-hdr-contact > summary:focus-visible {
+  outline: 2px solid var(--pnc-sage-active);
+  outline-offset: 2px;
+}
+.pnc-hdr-contact svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+.pnc-hdr-contact__chevron {
+  transition: transform var(--pnc-dur) var(--pnc-ease);
+}
+.pnc-hdr-contact[open] .pnc-hdr-contact__chevron {
+  transform: rotate(180deg);
+}
+
+/* Desplegable */
+.pnc-hdr-contact__menu {
+  position: absolute;
+  top: calc(100% + var(--pnc-space-2));
+  right: 0;
+  z-index: 1000;
+  display: grid;
+  gap: 2px;
+  min-width: 260px;
+  padding: var(--pnc-space-2);
+  border: 1px solid var(--pnc-border);
+  border-radius: var(--pnc-radius-lg);
+  background: var(--pnc-white);
+  box-shadow: var(--pnc-shadow-lift);
+}
+.pnc-hdr-contact__menu a {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  align-items: center;
+  column-gap: var(--pnc-space-3);
+  padding: 10px var(--pnc-space-3);
+  border-radius: var(--pnc-radius-md);
+  color: var(--pnc-text);
+  text-decoration: none;
+  transition: background-color var(--pnc-dur) var(--pnc-ease);
+}
+.pnc-hdr-contact__menu a:hover,
+.pnc-hdr-contact__menu a:focus-visible {
+  background: var(--pnc-cream) !important;   /* custom.css quita el fondo a todos los <a> */
+}
+.pnc-hdr-contact__icon {
+  display: grid;
+  place-items: center;
+  grid-row: span 2;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--pnc-sage-soft) !important;
+  color: var(--pnc-green-dark);
+}
+.pnc-hdr-contact__menu strong {
+  font-size: var(--pnc-fs-sm);
+  font-weight: var(--pnc-fw-medium);
+  line-height: 1.3;
+}
+.pnc-hdr-contact__menu a > span:last-child {
+  font-size: var(--pnc-fs-xs);
+  line-height: 1.3;
+  color: var(--pnc-text-muted);
+}
+.pnc-hdr-contact__hours {
+  margin: var(--pnc-space-1) 0 0;
+  padding: var(--pnc-space-2) var(--pnc-space-3) var(--pnc-space-1);
+  border-top: 1px solid var(--pnc-border);
+  font-size: var(--pnc-fs-xs);
+  color: var(--pnc-text-muted);
+}
+
+/* Mismo aspecto de píldora, pero en un widget BOTÓN de Creative Elements
+   (enlace directo, sin desplegable). Clase en el widget: "pnc-hdr-phone".
+   Los !important anulan el gris por defecto de .elementor-button, el
+   "a { background: transparent !important }" de custom.css y los colores
+   que el widget traiga del editor. */
+.pnc-hdr-main .elementor-element.pnc-hdr-phone a.elementor-button {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--pnc-space-2) var(--pnc-space-4) !important;
+  border: 1px solid color-mix(in srgb, var(--pnc-sage) 40%, transparent) !important;
+  border-radius: var(--pnc-radius-pill) !important;
+  background: var(--pnc-sage-soft) !important;
+  box-shadow: none !important;
+  font-family: var(--pnc-font-body) !important;
+  font-size: var(--pnc-fs-xs) !important;
+  font-weight: var(--pnc-fw-medium) !important;
+  line-height: 1.4 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  color: var(--pnc-green-dark) !important;
+  white-space: nowrap;
+  transition: background-color var(--pnc-dur) var(--pnc-ease), color var(--pnc-dur) var(--pnc-ease);
+}
+.pnc-hdr-main .elementor-element.pnc-hdr-phone a.elementor-button:is(:hover, :focus-visible) {
+  background: var(--pnc-sage) !important;
+  color: var(--pnc-white) !important;
+}
+.pnc-hdr-main .elementor-element.pnc-hdr-phone .elementor-button-content-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pnc-space-2);
+}
+.pnc-hdr-main .elementor-element.pnc-hdr-phone .elementor-button-icon {
+  display: inline-flex;
+  margin: 0 !important;
+  font-size: 14px !important;
+  color: inherit !important;
+}
+.pnc-hdr-main .elementor-element.pnc-hdr-phone .elementor-button-icon :is(i, svg) {
+  width: 14px;
+  height: 14px;
+  color: inherit !important;
+  fill: currentColor;
+}
+.pnc-hdr-main .elementor-element.pnc-hdr-phone .elementor-button-text {
+  color: inherit !important;
+}
+
+/* ---------------------------------------------------------
+   2c. Responsive de la fila principal
+   Corrige por CSS lo que los ajustes del editor rompían en tablet/móvil.
+   --------------------------------------------------------- */
+
+/* Hamburguesa: siempre del tamaño de su botón. En el editor tenía ancho
+   "Heredar" (100%) en tablet y "Personalizado" en móvil, y ocupaba toda
+   la fila, empujando el resto a otra línea. */
+.pnc-hdr-main .elementor-element.elementor-widget.pnc-hdr-burger {
+  flex: none !important;
+  width: auto !important;
+  max-width: none !important;
+}
+
+/* Iconos, logo y botón de atención: no se encogen nunca */
+.pnc-hdr-main :is(.pnc-hdr-icon, .pnc-hdr-phone) {
+  flex: none;
+}
+
+/* Buscador: ocupa el espacio libre, puede encogerse, y si de verdad no
+   cabe (menos de 220px) baja a la línea siguiente en vez de aplastarse */
+.pnc-hdr-main .elementor-element.elementor-widget.pnc-hdr-search {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+/* "Atención farmacéutica" solo en pantallas amplias (≥1280px): entre
+   1025 y 1279px no cabe junto al buscador y el carrito con importe */
+@media (max-width: 1279px) {
+  .pnc-hdr-main .pnc-hdr-phone {
+    display: none !important;
+  }
+}
+
+/* Móvil: el buscador baja a una segunda línea a ancho completo (después
+   de todo, incluso del carrito, que tiene "Orden: Final" = 99999).
+   Si se añade el buscador de móvil con lupa (pnc-hdr-search-mobile), la
+   barra se oculta y queda solo la lupa entre los iconos. */
+@media (max-width: 767px) {
+  .pnc-hdr-main .elementor-element.elementor-widget.pnc-hdr-search {
+    order: 100000;
+    flex: 1 1 100%;
+  }
+  .pnc-hdr-main .elementor-widget-wrap:has(.pnc-hdr-search-mobile) .pnc-hdr-search {
+    display: none !important;
+  }
+}

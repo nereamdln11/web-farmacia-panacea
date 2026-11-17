@@ -1,0 +1,524 @@
+/* ==========================================================================
+   Farmacia Panacea — Tema hijo de Hummingbird
+   Sobrescribe los estilos base de la tienda. No toques tokens.css desde aquí.
+   ========================================================================== */
+
+/* Base ------------------------------------------------------------------- */
+body {
+  font-family: var(--pnc-font-body);
+  font-size: var(--pnc-fs-base);
+  font-weight: var(--pnc-fw-regular);
+  line-height: var(--pnc-lh-base);
+  color: var(--pnc-text-muted);
+  background: var(--pnc-bg);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, .pnc-display {
+  font-family: var(--pnc-font-display);
+  color: var(--pnc-text);
+  font-weight: var(--pnc-fw-regular);
+  line-height: var(--pnc-lh-tight);
+  letter-spacing: var(--pnc-ls-display);
+}
+a, span {
+  background: transparent!important;
+}
+h4, h5 { font-family: var(--pnc-font-body); color: var(--pnc-text); font-weight: var(--pnc-fw-medium); }
+h6 { 
+  font-family: var(--pnc-font-body); 
+  color: var(--pnc-text-muted) !important; 
+  font-weight: var(--pnc-fw-regular);  
+  text-transform: uppercase;
+  letter-spacing: var( --pnc-ls-label);
+}
+h1 { font-size: var(--pnc-fs-h1); }
+h2 { font-size: var(--pnc-fs-h2); }
+h3 { font-size: var(--pnc-fs-h3); }
+h4 { font-size: var(--pnc-fs-h4); }
+h6 { font-size: var(--pnc-fs-h6) !important; }
+@media (max-width: 768px) {
+  
+  h1 { font-size: var(--pnc-fs-h2); }
+  h2 { font-size: var(--pnc-fs-h3); }
+  h3 { font-size: var(--pnc-fs-h4); }
+  h4 { font-size: var(--pnc-fs-h6); }
+  h6 { font-size: var(--pnc-fs-h6) !important; }
+}
+/* Móvil */
+@media (max-width: 576px) {
+  body {
+  font-size: var(--pnc-fs-sm);
+  }
+  h1 { font-size: var(--pnc-fs-h2); }
+  h2 { font-size: var(--pnc-fs-h3); }
+  h3 { font-size: var(--pnc-fs-h4); }
+  h4 { font-size: var(--pnc-fs-h6); }
+  h6 { font-size: var(--pnc-fs-h6) !important; }
+}
+
+
+a  { background: transparent; color: var(--pnc-text); text-decoration: none; transition: color var(--pnc-dur) var(--pnc-ease); }
+a:hover, a:focus-visible { color: var(--pnc-sage-active); }
+:focus-visible { outline: 2px solid var(--pnc-sage); outline-offset: 2px; border-radius: var(--pnc-radius-sm); }
+hr, .separator { border-color: var(--pnc-border); }
+
+.container, .container-xl { max-width: var(--pnc-container); padding-inline: var(--pnc-gutter); }
+
+/* Botones ---------------------------------------------------------------- */
+
+.btn {
+  font-family: var(--pnc-font-body)!important;
+  font-weight: var(--pnc-fw-medium)!important;
+  font-size: var(--pnc-fs-sm);
+  border-radius: var(--pnc-radius-pill)!important;
+  padding: 12px 28px!important;
+  border: 1px solid transparent!important;
+  transition: all var(--pnc-dur) var(--pnc-ease)!important;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.btn.add-to-cart{
+  padding: 0px!important;
+}
+.btn-primary, .btn.add-to-cart {
+  background: var(--pnc-sage)!important;
+  border-color: var(--pnc-sage)!important;
+  color: var(--pnc-white)!important;
+}
+.btn-primary:hover, .btn.add-to-cart:hover,
+.btn-primary:focus, .btn.add-to-cart:focus {
+  background: color-mix(in srgb, var(--pnc-sage) 90%, transparent)!important; 
+  color: var(--pnc-white)!important;
+  box-shadow: var(--pnc-shadow-soft)!important;
+}
+.btn-primary:active, .btn.add-to-cart:active {
+  background: var(--pnc-sage-active);
+  border-color: var(--pnc-sage-active);
+  color: var(--pnc-white);
+  box-shadow: none;
+}
+.btn-primary:disabled, .btn.disabled { background: var(--pnc-sage-line); border-color: var(--pnc-sage-line); color: var(--pnc-white); opacity: 1; }
+
+.btn-secondary, .btn-outline-primary {
+  background: transparent;
+  border-color: var(--pnc-green-dark);
+  color: var(--pnc-green-dark);
+}
+.btn-secondary:hover, .btn-outline-primary:hover {
+  background: var(--pnc-green-dark);
+  border-color: var(--pnc-green-dark);
+  color: var(--pnc-white);
+}
+.btn-link { color: var(--pnc-green-dark); text-decoration: underline; text-underline-offset: 4px; padding-inline: 0; }
+.btn-link:hover { color: var(--pnc-sage-active); }
+/* Solo botones de añadir al carrito deshabilitados */
+/* Apariencia del enlace deshabilitado dentro del widget */
+/* Botón de añadir al carrito deshabilitado */
+.elementor-widget-product-miniature-add-to-cart
+a.elementor-button[aria-disabled="true"] {
+    background: #E8EAE6 !important;
+    color: #969B93 !important;
+    border: 1px solid #E8EAE6 !important;
+    border-radius: var(--pnc-radius-pill) !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    cursor: not-allowed;
+}
+
+.elementor-widget-product-miniature-add-to-cart
+a.elementor-button[aria-disabled="true"] .elementor-button-text,
+.elementor-widget-product-miniature-add-to-cart
+a.elementor-button[aria-disabled="true"] .elementor-button-icon,
+.elementor-widget-product-miniature-add-to-cart
+a.elementor-button[aria-disabled="true"] .elementor-button-icon i {
+    color: #969B93 !important;
+}
+
+/* Evita que el fondo verde del contenedor se vea por detrás */
+.elementor-widget-product-miniature-add-to-cart.btn.add-to-cart:has(a.elementor-button[aria-disabled="true"]) {
+    background: #E8EAE6 !important;
+    border-color: #E8EAE6 !important;
+}
+/* Formularios ------------------------------------------------------------ */
+.form-control, .form-select, .input-group .form-control {
+  font-family: var(--pnc-font-body);
+  font-size: var(--pnc-fs-base);
+  color: var(--pnc-text);
+  background: var(--pnc-white);
+  border: 1px solid var(--pnc-border);
+  border-radius: var(--pnc-radius-md);
+  padding: 12px 16px;
+  box-shadow: none;
+  transition: border-color var(--pnc-dur) var(--pnc-ease), box-shadow var(--pnc-dur) var(--pnc-ease);
+}
+.form-control::placeholder { color: var(--pnc-text-muted); opacity: .8; }
+.form-control:focus, .form-select:focus {
+  border-color: var(--pnc-sage);
+  box-shadow: 0 0 0 3px rgba(156,175,136,.22);
+}
+.form-control.is-invalid, .form-control:invalid:not(:placeholder-shown) { border-color: var(--pnc-danger); }
+label, .form-label { font-size: var(--pnc-fs-sm); font-weight: var(--pnc-fw-medium); color: var(--pnc-text); }
+.form-check-input:checked { background-color: var(--pnc-sage); border-color: var(--pnc-sage); }
+
+/* Header ----------------------------------------------------------------- */
+#header, .header-top {
+}
+.header-banner, .pnc-announcement {
+  background: var(--pnc-sage-soft);
+  color: var(--pnc-green-dark);
+  font-size: var(--pnc-fs-xs);
+  letter-spacing: var(--pnc-ls-wide);
+  text-transform: uppercase;
+  text-align: center;
+  padding: 10px var(--pnc-gutter);
+}
+#_desktop_logo img, .header-logo img { max-height: 56px; width: auto; }
+
+/* Navegación y mega menú ------------------------------------------------- */
+.header-nav .menu > li > a, #top-menu > li > a {
+  font-size: var(--pnc-fs-sm);
+  font-weight: var(--pnc-fw-medium);
+  color: var(--pnc-text);
+  padding: 18px 16px;
+  position: relative;
+}
+#top-menu > li > a::after {
+  content: ""; position: absolute; left: 16px; right: 16px; bottom: 10px;
+  height: 1px; background: var(--pnc-sage); transform: scaleX(0);
+  transform-origin: left; transition: transform var(--pnc-dur) var(--pnc-ease);
+}
+#top-menu > li:hover > a::after, #top-menu > li.current > a::after { transform: scaleX(1); }
+#top-menu > li.current > a { color: var(--pnc-green-dark); }
+
+.popover.sub-menu {
+  background: var(--pnc-white);
+  border: 1px solid var(--pnc-border);
+  border-radius: var(--pnc-radius-lg);
+  box-shadow: var(--pnc-shadow-lift);
+  padding: var(--pnc-space-6);
+  margin-top: 0;
+}
+/* El megamenú de 3 columnas (.pnc-megamenu*) vive entero en megamenu.css */
+
+/* Buscador --------------------------------------------------------------- */
+#search_widget form, .pnc-search { position: relative; }
+#search_widget input[type="text"], .pnc-search input {
+  border-radius: var(--pnc-radius-pill);
+  padding: 12px 48px 12px 20px;
+  background: var(--pnc-white);
+  border: 1px solid var(--pnc-border);
+}
+#search_widget button[type="submit"] { color: var(--pnc-green-dark); background: transparent; border: 0; }
+.ui-autocomplete, .pnc-search__panel {
+  background: var(--pnc-white);
+  border: 1px solid var(--pnc-border);
+  border-radius: var(--pnc-radius-lg);
+  box-shadow: var(--pnc-shadow-lift);
+  padding: var(--pnc-space-2);
+}
+.ui-autocomplete .ui-menu-item a:hover, .pnc-search__panel a:hover { background: var(--pnc-sage-soft); border-radius: var(--pnc-radius-sm); }
+
+/* Tarjeta de producto ---------------------------------------------------- */
+.pnc-product-miniature-image{
+   overflow: hidden;
+  /* border-radius: var(--pnc-radius-xl) var(--pnc-radius-xl) 0 0; */
+}
+
+.pnc-product-miniature-label{
+    font-family: var(--pnc-font-body); 
+    color: var(--pnc-text-muted) !important; 
+    font-weight: var(--pnc-fw-regular);  
+    font-size: var(--pnc-fs-xs) !important;
+    text-transform: uppercase !important;
+    letter-spacing: var( --pnc-ls-label);
+}
+.ce-product-name a {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+
+  font-family: var(--pnc-font-body);
+  color: var(--pnc-text) !important;
+  font-weight: var(--pnc-fw-medium)!important;
+  font-size: 15px !important;
+  text-transform: none !important;
+  line-height: 1.4em !important;
+  height: 2.8em !important;
+  transition: font-weight 0.3s ease;
+}
+/* Lift + sombra al pasar por encima, igual que .ce-gallery-item */
+.elementor-section-wrap[data-id-product] {
+    display: block;
+    overflow: hidden;
+    border: 1px solid var(--pnc-border);
+    border-radius: 22px;
+    background: #fff;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.elementor-section-wrap[data-id-product]:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Zoom de la imagen, igual que .ce-gallery-icon img */
+.pnc-product-miniature-image img {
+    transition: transform 0.5s ease;
+}
+
+.elementor-section-wrap[data-id-product]:hover .pnc-product-miniature-image img {
+    transform: scale(1.05);
+}
+
+
+
+
+
+
+
+
+.product-miniature .card, .js-product-miniature, .pnc-card {
+  background: var(--pnc-white);
+  border: 1px solid var(--pnc-border);
+  border-radius: var(--pnc-radius-xl);
+  box-shadow: none;
+  overflow: hidden;
+  transition: box-shadow var(--pnc-dur) var(--pnc-ease), transform var(--pnc-dur) var(--pnc-ease), border-color var(--pnc-dur) var(--pnc-ease);
+}
+.product-miniature:hover .card, .js-product-miniature:hover, .pnc-card:hover {
+  border-color: var(--pnc-sage-line);
+  box-shadow: var(--pnc-shadow-lift);
+  transform: translateY(-2px);
+}
+
+/* Favoritos en la miniatura: botón circular flotante sobre la imagen.
+   Clase en el widget de CE (Avanzado → Clases CSS): "pnc-product-miniature-wishlist" */
+.pnc-product-miniature-wishlist a.ce-add-to-wishlist {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: var(--pnc-text-muted) !important;
+    border: 0.75px solid var(--pnc-border) !important;
+    border-radius: 50% !important;
+    box-shadow: none !important;
+
+    text-decoration: none;
+    transition: color 180ms ease, background-color 180ms ease;
+}
+
+.pnc-product-miniature-wishlist a.ce-add-to-wishlist i {
+    font-size: 16px;
+    line-height: 1;
+    color: inherit !important;
+}
+
+.pnc-product-miniature-wishlist a.ce-add-to-wishlist:hover {
+    color: var(--pnc-sage) !important;
+    background: #fff !important;
+}
+
+.product-miniature .product-thumbnail { display: block; background: var(--pnc-cream); position: relative; }
+.product-miniature .product-thumbnail img { transition: transform 400ms var(--pnc-ease); width: 100%; height: auto; }
+.product-miniature:hover .product-thumbnail img { transform: scale(1.03); }
+.product-miniature .product-title a, .pnc-card__title {
+  font-family: var(--pnc-font-body);
+  font-size: var(--pnc-fs-base);
+  font-weight: var(--pnc-fw-medium);
+  color: var(--pnc-text);
+  line-height: 1.35;
+}
+.product-miniature .product-title a:hover { color: var(--pnc-sage-active); }
+.product-miniature .product-brand, .pnc-card__brand {
+  font-size: var(--pnc-fs-xs);
+  letter-spacing: var(--pnc-ls-wide);
+  text-transform: uppercase;
+  color: var(--pnc-text-muted);
+  margin-bottom: var(--pnc-space-2);
+}
+.product-miniature .price, .pnc-card__price {
+  font-size: var(--pnc-fs-lg);
+  font-weight: var(--pnc-fw-semibold);
+  color: var(--pnc-green-dark);
+}
+.product-miniature .regular-price { color: var(--pnc-text-muted); text-decoration: line-through; font-size: var(--pnc-fs-sm); font-weight: 400; margin-left: 8px; }
+.product-miniature .product-description { padding: var(--pnc-space-4) var(--pnc-space-4) var(--pnc-space-5); }
+
+/* Etiquetas / flags */
+.product-flags li.product-flag, .pnc-badge {
+  background: var(--pnc-white);
+  color: var(--pnc-green-dark);
+  border: 1px solid var(--pnc-sage-line);
+  border-radius: var(--pnc-radius-pill);
+  font-size: var(--pnc-fs-xs);
+  font-weight: var(--pnc-fw-medium);
+  letter-spacing: .02em;
+  padding: 5px 12px;
+  text-transform: none;
+  box-shadow: none;
+}
+.product-flags li.product-flag.discount, .pnc-badge--sale { background: var(--pnc-sage); border-color: var(--pnc-sage); color: var(--pnc-white); }
+.product-flags li.product-flag.out_of_stock { background: var(--pnc-cream); border-color: var(--pnc-border); color: var(--pnc-text-muted); }
+
+/* Favorito y vista rápida sobre la imagen */
+.pnc-card__actions { position: absolute; top: 12px; right: 12px; display: grid; gap: 8px; z-index: 2; }
+.pnc-icon-btn {
+  width: 38px; height: 38px; display: grid; place-items: center;
+  background: var(--pnc-white); border: 1px solid var(--pnc-border);
+  border-radius: var(--pnc-radius-pill); color: var(--pnc-green-dark);
+  box-shadow: var(--pnc-shadow-soft); cursor: pointer;
+  transition: all var(--pnc-dur) var(--pnc-ease);
+}
+.pnc-icon-btn:hover { background: var(--pnc-sage); border-color: var(--pnc-sage); color: var(--pnc-white); }
+.pnc-icon-btn.is-active { background: var(--pnc-sage); border-color: var(--pnc-sage); color: var(--pnc-white); }
+
+/* Vista rápida (clic en la foto) ----------------------------------------- */
+.pnc-quickview-trigger { cursor: zoom-in; }
+#pnc-quickview { position: fixed; inset: 0; z-index: 1080; display: none; }
+#pnc-quickview.is-open { display: block; }
+#pnc-quickview .pnc-qv__backdrop { position: absolute; inset: 0; background: rgba(67,83,66,.35); backdrop-filter: blur(2px); }
+#pnc-quickview .pnc-qv__dialog {
+  position: relative; margin: 6vh auto; max-width: 900px; width: calc(100% - 32px);
+  background: var(--pnc-white); border-radius: var(--pnc-radius-xl);
+  box-shadow: var(--pnc-shadow-lift); overflow: hidden;
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+#pnc-quickview .pnc-qv__media { background: var(--pnc-cream); }
+#pnc-quickview .pnc-qv__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+#pnc-quickview .pnc-qv__body { padding: var(--pnc-space-7); }
+#pnc-quickview .pnc-qv__close {
+  position: absolute; top: 16px; right: 16px; z-index: 2;
+  width: 38px; height: 38px; border-radius: var(--pnc-radius-pill);
+  border: 1px solid var(--pnc-border); background: var(--pnc-white); color: var(--pnc-green-dark); cursor: pointer;
+}
+@media (max-width: 767.98px) {
+  #pnc-quickview .pnc-qv__dialog { grid-template-columns: 1fr; margin: 0; height: 100%; border-radius: 0; overflow-y: auto; }
+}
+
+/* Ficha de producto ------------------------------------------------------ */
+.product-container .product-cover, .product-images img { border-radius: var(--pnc-radius-xl); background: var(--pnc-cream); }
+.product-images li img { border: 1px solid var(--pnc-border); border-radius: var(--pnc-radius-md); }
+.product-images li.selected img, .product-images li img:hover { border-color: var(--pnc-sage); }
+.product-prices .current-price { font-size: var(--pnc-fs-h2); font-weight: var(--pnc-fw-semibold); color: var(--pnc-green-dark); }
+.product-quantity .qty .input-group { border: 1px solid var(--pnc-border); border-radius: var(--pnc-radius-pill); overflow: hidden; }
+.product-quantity input.input-group { border: 0; text-align: center; }
+.tabs .nav-tabs { border-bottom: 1px solid var(--pnc-border); }
+.tabs .nav-tabs .nav-link { color: var(--pnc-text-muted); border: 0; border-bottom: 2px solid transparent; padding: 12px 20px; font-weight: var(--pnc-fw-medium); }
+.tabs .nav-tabs .nav-link.active { color: var(--pnc-green-dark); border-bottom-color: var(--pnc-sage); background: transparent; }
+
+/* Categoría / listado ---------------------------------------------------- */
+#category #js-product-list-header, .pnc-category-hero {
+  background: var(--pnc-white);
+  border-bottom: 1px solid var(--pnc-border);
+  padding-block: var(--pnc-space-7);
+}
+#category h1, .pnc-category-hero h1 { font-size: var(--pnc-fs-h1); }
+#category #left-column .facet, #search_filters .facet { border-bottom: 1px solid var(--pnc-border); padding-block: var(--pnc-space-4); }
+#search_filters .facet-title { font-size: var(--pnc-fs-xs); letter-spacing: var(--pnc-ls-wide); text-transform: uppercase; color: var(--pnc-green-dark); }
+.pagination .page-list li a { border-radius: var(--pnc-radius-pill); width: 40px; height: 40px; display: grid; place-items: center; color: var(--pnc-text); }
+.pagination .page-list li.current a, .pagination .page-list li a:hover { background: var(--pnc-sage); color: var(--pnc-white); }
+
+/* Chips de subcategoría / gamas ------------------------------------------ */
+.pnc-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 16px; border-radius: var(--pnc-radius-pill);
+  border: 1px solid var(--pnc-border); background: var(--pnc-white);
+  color: var(--pnc-text); font-size: var(--pnc-fs-sm); font-weight: var(--pnc-fw-medium);
+  transition: all var(--pnc-dur) var(--pnc-ease);
+}
+.pnc-chip:hover { border-color: var(--pnc-sage); color: var(--pnc-green-dark); background: var(--pnc-sage-soft); }
+.pnc-chip.is-active, .pnc-chip[aria-pressed="true"] { background: var(--pnc-sage); border-color: var(--pnc-sage); color: var(--pnc-white); }
+
+/* Marcas: botonera A-Z --------------------------------------------------- */
+.pnc-alpha { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: var(--pnc-space-7); }
+.pnc-alpha__btn {
+  width: 40px; height: 40px; display: grid; place-items: center;
+  border-radius: 50%; border: 1px solid var(--pnc-border); background: var(--pnc-white);
+  color: var(--pnc-text); font-size: var(--pnc-fs-sm); font-weight: var(--pnc-fw-medium);
+  cursor: pointer; transition: all var(--pnc-dur) var(--pnc-ease);
+}
+.pnc-alpha__btn:hover { border-color: var(--pnc-sage); background: var(--pnc-sage-soft); }
+.pnc-alpha__btn.is-active { background: var(--pnc-sage); border-color: var(--pnc-sage); color: var(--pnc-white); }
+.pnc-alpha__btn.is-empty { opacity: .35; pointer-events: none; }
+.pnc-brand-card {
+  border: 1px solid var(--pnc-border); border-radius: var(--pnc-radius-xl);
+  background: var(--pnc-white); padding: var(--pnc-space-5);
+  display: grid; place-items: center; min-height: 120px;
+  transition: all var(--pnc-dur) var(--pnc-ease);
+}
+.pnc-brand-card:hover { border-color: var(--pnc-sage-line); box-shadow: var(--pnc-shadow-soft); transform: translateY(-2px); }
+.pnc-brand-card img { max-width: 140px; height: auto; filter: grayscale(1); opacity: .75; transition: all var(--pnc-dur) var(--pnc-ease); }
+.pnc-brand-card:hover img { filter: none; opacity: 1; }
+
+/* Carrito ---------------------------------------------------------------- */
+.cart-grid-body .card, .cart-grid-right .card {
+  border: 1px solid var(--pnc-border); border-radius: var(--pnc-radius-xl); box-shadow: none; background: var(--pnc-white);
+}
+.cart-summary-line .value { color: var(--pnc-green-dark); font-weight: var(--pnc-fw-medium); }
+.pnc-freeship { background: var(--pnc-sage-soft); border-radius: var(--pnc-radius-lg); padding: var(--pnc-space-4); font-size: var(--pnc-fs-sm); color: var(--pnc-green-dark); }
+.pnc-progress { height: 6px; border-radius: var(--pnc-radius-pill); background: var(--pnc-white); overflow: hidden; }
+.pnc-progress__bar { height: 100%; background: var(--pnc-sage); transition: width 400ms var(--pnc-ease); }
+
+/* Newsletter y footer ---------------------------------------------------- */
+.block-newsletter, .pnc-newsletter {
+  background: var(--pnc-cream);
+  border-radius: var(--pnc-radius-xl);
+  padding: var(--pnc-space-8) var(--pnc-space-6);
+  text-align: center;
+}
+.block-newsletter input[type="email"] { border-radius: var(--pnc-radius-pill); max-width: 380px; }
+#footer, .footer-container {
+  background: var(--pnc-white);
+  border-top: 1px solid var(--pnc-border);
+  padding-top: var(--pnc-section-y);
+  color: var(--pnc-text-muted);
+}
+#footer h3, #footer .h3, .footer-container .block-title {
+  font-family: var(--pnc-font-display);
+  font-size: var(--pnc-fs-xs);
+  letter-spacing: var(--pnc-ls-wide);
+  text-transform: uppercase;
+  color: var(--pnc-green-dark);
+  margin-bottom: var(--pnc-space-4);
+}
+#footer a { color: var(--pnc-text-muted); font-size: var(--pnc-fs-sm); }
+#footer a:hover { color: var(--pnc-sage-active); }
+.pnc-footer-bottom { border-top: 1px solid var(--pnc-border); margin-top: var(--pnc-space-7); padding-block: var(--pnc-space-5); font-size: var(--pnc-fs-xs); }
+
+/* Alertas y notificaciones ----------------------------------------------- */
+.alert { border-radius: var(--pnc-radius-lg); border: 1px solid var(--pnc-border); background: var(--pnc-white); color: var(--pnc-text); }
+.alert-success { border-color: var(--pnc-sage-line); background: var(--pnc-sage-soft); color: var(--pnc-green-dark); }
+.alert-danger { border-color: rgba(192,87,76,.35); background: rgba(192,87,76,.06); color: var(--pnc-danger); }
+
+/* Secciones -------------------------------------------------------------- */
+.pnc-section { padding-block: var(--pnc-section-y); }
+.pnc-section--tinted { background: var(--pnc-cream); }
+.pnc-eyebrow {
+  font-size: var(--pnc-fs-xs); letter-spacing: var(--pnc-ls-wide);
+  text-transform: uppercase; color: var(--pnc-sage-active); font-weight: var(--pnc-fw-medium);
+  margin-bottom: var(--pnc-space-3);
+}
+.pnc-section__title { font-family: var(--pnc-font-display); font-size: var(--pnc-fs-h2); color: var(--pnc-green-dark); }
+.pnc-section__lead { font-size: var(--pnc-fs-lg); color: var(--pnc-text-muted); max-width: 60ch; }
+
+/* Responsive ------------------------------------------------------------- */
+@media (max-width: 991.98px) {
+  :root { --pnc-fs-hero: 2.5rem; --pnc-fs-h1: 2rem; --pnc-fs-h2: 1.625rem; --pnc-gutter: 16px; }
+  .pnc-section { padding-block: var(--pnc-section-y-sm); }
+}
+@media (max-width: 575.98px) {
+  .btn { width: auto; padding: 12px 22px; }
+  .product-miniature .product-description { padding: var(--pnc-space-3); }
+}
+

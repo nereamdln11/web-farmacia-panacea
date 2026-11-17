@@ -1,0 +1,132 @@
+name: panacea
+display_name: Farmacia Panacea
+version: 1.0.0
+author:
+  name: "Farmacia Panacea"
+  email: "info@lafarmaciadepanacea.com"
+  url: "https://www.lafarmaciadepanacea.com"
+
+parent: hummingbird
+
+meta:
+  compatibility:
+    from: 9.0.0
+    to: ~
+  available_layouts:
+    layout-full-width:
+      name: Full Width
+      description: No side columns, ideal for distraction free pages
+    layout-both-columns:
+      name: Three Columns
+      description: Two side columns
+    layout-left-column:
+      name: Two Columns, small left column
+    layout-right-column:
+      name: Two Columns, small 45right column
+
+assets:
+  use_parent_assets: true
+  css:
+    all:
+      - id: panacea-fonts
+        path: assets/css/fonts.css
+        media: all
+        priority: 200
+      - id: panacea-variables
+        path: assets/css/global/_variables.css
+        media: all
+        priority: 210
+      - id: panacea-forms
+        path: assets/css/global/_forms.css
+        media: all
+        priority: 216
+      - id: panacea-theme
+        path: assets/css/custom.css
+        media: all
+        priority: 220
+      - id: panacea-ps-facetedsearch
+        path: assets/css/modules/ps_facetedsearch.css
+        media: all
+        priority: 225
+      - id: panacea-creative-elements
+        path: assets/css/creative-elements.css
+        media: all
+        priority: 230
+      - id: panacea-megamenu
+        path: assets/css/components/megamenu.css
+        media: all
+        priority: 240
+      - id: panacea-products-filters
+        path: assets/css/components/products-filters.css
+        media: all
+        priority: 245
+      - id: panacea-breadcrumb
+        path: assets/css/components/breadcrumb.css
+        media: all
+        priority: 246
+      - id: panacea-header
+        path: assets/css/overrides-ce/header.css
+        media: all
+        priority: 500
+      - id: panacea-footer
+        path: assets/css/overrides-ce/footer.css
+        media: all
+        priority: 500
+      - id: panacea-nav
+        path: assets/css/overrides-ce/nav.css
+        media: all
+        priority: 500
+    manufacturer:
+      - id: panacea-manufacturer
+        path: assets/css/brands-filter.css
+        media: all
+        priority: 200
+    category:
+      - id: panacea-category
+        path: assets/css/pages/category.css
+        media: all
+        priority: 250
+    product:
+      - id: panacea-product
+        path: assets/css/pages/product.css
+        media: all
+        priority: 250
+    index:
+      - id: panacea-home
+        path: assets/css/pages/home.css
+        media: all
+        priority: 250
+    cart:
+      - id: panacea-cart
+        path: assets/css/pages/cart-checkout.css
+        media: all
+        priority: 250
+    order:
+      - id: panacea-checkout
+        path: assets/css/pages/cart-checkout.css
+        media: all
+        priority: 250
+    my-account:
+      - id: panacea-my-account
+        path: assets/css/pages/my-account.css
+        media: all
+        priority: 250
+  js:
+    all:
+      - id: panacea-js
+        path: assets/js/custom.js
+        priority: 200
+        position: bottom
+      - id: panacea-header-megamenu
+        path: assets/js/header-megamenu.js
+        priority: 205
+        position: bottom
+      - id: panacea-search
+        path: assets/js/custom-search.js
+        priority: 210
+        position: bottom
+    manufacturer:
+      - id: brands-filter-js
+        path: assets/js/brands-filter.js
+        priority: 220
+        position: bottom

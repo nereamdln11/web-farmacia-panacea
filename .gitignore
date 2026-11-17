@@ -1,5 +1,5 @@
 # Caché que genera PrestaShop (CSS/JS combinados)
-assets/cache/
+**/assets/cache/
 
 # Dependencias y logs
 node_modules/

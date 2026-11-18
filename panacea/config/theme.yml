@@ -134,6 +134,10 @@ assets:
         path: assets/js/header-menu.js
         priority: 215
         position: bottom
+      - id: panacea-header-search
+        path: assets/js/header-search.js
+        priority: 216
+        position: bottom
     manufacturer:
       - id: brands-filter-js
         path: assets/js/brands-filter.js

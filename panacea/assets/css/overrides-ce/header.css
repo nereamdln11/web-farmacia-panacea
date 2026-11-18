@@ -204,7 +204,7 @@
   margin: 0 !important;
   padding: 0 !important;
 }
-.pnc-hdr-icon :is(a.elementor-item, a.elementor-icon, .elementor-cart__toggle a, .elementor-search__toggle) {
+.pnc-hdr-icon :is(a.elementor-item, .elementor-icon, .elementor-cart__toggle a, .elementor-search__toggle) {
   display: flex !important;
   align-items: center;
   justify-content: center;
@@ -222,8 +222,8 @@
   color: var(--pnc-text);
   transition: background-color var(--pnc-dur) var(--pnc-ease), color var(--pnc-dur) var(--pnc-ease);
 }
-.pnc-hdr-icon :is(a.elementor-item, a.elementor-icon, .elementor-cart__toggle a, .elementor-search__toggle):hover,
-.pnc-hdr-icon :is(a.elementor-item, a.elementor-icon, .elementor-cart__toggle a, .elementor-search__toggle):focus-visible {
+.pnc-hdr-icon :is(a.elementor-item, .elementor-icon, .elementor-cart__toggle a, .elementor-search__toggle):hover,
+.pnc-hdr-icon :is(a.elementor-item, .elementor-icon, .elementor-cart__toggle a, .elementor-search__toggle):focus-visible {
   background: var(--pnc-cream) !important;   /* custom.css quita el fondo a todos los <a> */
   color: var(--pnc-green-dark);
 }
@@ -262,18 +262,18 @@
    Anula el tamaño/color/relleno que cada widget trae del editor (Icono,
    Carrito…), que Creative Elements aplica por ID de elemento. Si quieres
    cambiar el color o el tamaño de los iconos, hazlo aquí, no en el editor. */
-.pnc-hdr-main .elementor-element.pnc-hdr-icon :is(a.elementor-icon, .elementor-cart__toggle a.elementor-button, .elementor-search__toggle, a.elementor-item) {
+.pnc-hdr-main .elementor-element.pnc-hdr-icon :is(.elementor-icon, .elementor-cart__toggle a.elementor-button, .elementor-search__toggle, a.elementor-item) {
   border: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
   font-size: 20px !important;
   color: var(--pnc-text) !important;
 }
-.pnc-hdr-main .elementor-element.pnc-hdr-icon :is(a.elementor-icon, .elementor-cart__toggle a.elementor-button, .elementor-search__toggle, a.elementor-item):is(:hover, :focus-visible) {
+.pnc-hdr-main .elementor-element.pnc-hdr-icon :is(.elementor-icon, .elementor-cart__toggle a.elementor-button, .elementor-search__toggle, a.elementor-item):is(:hover, :focus-visible) {
   background: var(--pnc-cream) !important;
   color: var(--pnc-green-dark) !important;
 }
-.pnc-hdr-main .elementor-element.pnc-hdr-icon :is(a.elementor-icon, .elementor-cart__toggle a.elementor-button, .elementor-search__toggle, a.elementor-item) :is(i, svg, .elementor-button-icon) {
+.pnc-hdr-main .elementor-element.pnc-hdr-icon :is(.elementor-icon, .elementor-cart__toggle a.elementor-button, .elementor-search__toggle, a.elementor-item) :is(i, svg, .elementor-button-icon) {
   width: 20px !important;
   height: 20px !important;
   font-size: 20px !important;
@@ -677,5 +677,87 @@ body.pnc-menu-open {
   .pnc-menu-backdrop,
   body.pnc-menu-open .pnc-menu-backdrop {
     transition: none;
+  }
+}
+
+/* ---------------------------------------------------------
+   2g. Buscador plegable en móvil (ver assets/js/header-search.js)
+   La lupa es un widget Icono con la clase "pnc-hdr-search-toggle"; el JS
+   marca el icono de usuario como "pnc-hdr-account" y pone
+   "pnc-search-collapsed" en el header cuando el buscador se recoge.
+   Se recoge animando la altura hasta 0, así la página y el desplegable
+   de la hamburguesa (top: 100%) acompañan el movimiento.
+   Solo en móvil (≤767px), que es cuando el buscador va en su propia
+   línea; en tablet va en la misma fila que los iconos y se queda fijo.
+   --------------------------------------------------------- */
+/* La lupa no lleva enlace (Creative Elements la pinta como <span>):
+   se le da el cursor de botón como al resto de iconos */
+.pnc-hdr-search-toggle .elementor-icon {
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .pnc-hdr-main .pnc-hdr-search-toggle {
+    display: none !important;
+  }
+}
+@media (max-width: 767px) {
+  .pnc-hdr-main .pnc-hdr-account {
+    display: none !important;
+  }
+  /* Abrir y cerrar en la misma dirección que el scroll: al bajar, el
+     buscador sube y se pliega; al aparecer, baja y se despliega.
+     Se anima la altura (no solo la opacidad) para que la página y el
+     desplegable de la hamburguesa se muevan con él, sin saltos.
+     El margin-top negativo absorbe el hueco de 8px entre líneas de la fila. */
+  .pnc-hdr-main .elementor-element.elementor-widget.pnc-hdr-search {
+    max-height: 64px;
+    overflow: hidden;
+    opacity: 1;
+    transform: none;
+    transition: max-height 280ms var(--pnc-ease),
+                margin-top 280ms var(--pnc-ease),
+                opacity 200ms var(--pnc-ease),
+                transform 280ms var(--pnc-ease),
+                visibility 0s;
+  }
+  /* Con el campo activo se deja ver lo que sobresale (anillo de foco y
+     lista de resultados) */
+  .pnc-hdr-main .elementor-element.elementor-widget.pnc-hdr-search:focus-within {
+    overflow: visible;
+  }
+  header.pnc-search-collapsed .pnc-hdr-main .elementor-element.elementor-widget.pnc-hdr-search {
+    max-height: 0;
+    margin-top: -8px;
+    opacity: 0;
+    transform: translateY(-12px);
+    visibility: hidden;
+    pointer-events: none;
+    transition: max-height 280ms var(--pnc-ease),
+                margin-top 280ms var(--pnc-ease),
+                opacity 160ms var(--pnc-ease),
+                transform 280ms var(--pnc-ease),
+                visibility 0s linear 280ms;
+  }
+  /* Buscador abierto: la lupa sin fondo y en gris claro, como "pulsada".
+     También anula el fondo de :hover, que en táctil se queda pegado. */
+  header:not(.pnc-search-collapsed) .pnc-hdr-main .elementor-element.pnc-hdr-icon.pnc-hdr-search-toggle .elementor-icon,
+  header:not(.pnc-search-collapsed) .pnc-hdr-main .elementor-element.pnc-hdr-icon.pnc-hdr-search-toggle .elementor-icon:is(:hover, :focus-visible) {
+    background: transparent !important;
+    color: var(--pnc-text-muted) !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pnc-hdr-main .elementor-element.elementor-widget.pnc-hdr-search,
+  header.pnc-search-collapsed .pnc-hdr-main .elementor-element.elementor-widget.pnc-hdr-search {
+    transition: none;
+  }
+}
+
+/* iOS amplía la pantalla al enfocar un campo con letra de menos de 16px.
+   En tablet/móvil el buscador usa 16px para evitarlo (sin bloquear el
+   zoom de la página, que es necesario para accesibilidad). */
+@media (max-width: 1024px) {
+  .pnc-hdr-search .elementor-search__input {
+    font-size: 16px !important;
   }
 }

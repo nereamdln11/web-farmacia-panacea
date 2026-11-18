@@ -617,3 +617,65 @@
     display: none !important;
   }
 }
+
+/* ---------------------------------------------------------
+   2e. Desplegable de la hamburguesa, pegado a la fila principal
+   Creative Elements lo coloca debajo del icono (no de la sección), con
+   la "Distancia" del editor (20px, con !important y selector por ID) y
+   un desplazamiento lateral calculado por JS que lo descuadraba 5px.
+   Aquí se coloca respecto a la sección "pnc-hdr-main": justo debajo,
+   a todo el ancho y sin margen. Si el menú es largo, hace scroll dentro.
+   --------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .pnc-hdr-main {
+    position: relative;
+  }
+  /* Los contenedores intermedios no deben ser referencia de posición */
+  .pnc-hdr-main :is(.elementor-container, .elementor-row, .elementor-column,
+                    .elementor-column-wrap, .elementor-widget-wrap),
+  .pnc-hdr-main .pnc-hdr-burger,
+  .pnc-hdr-main .pnc-hdr-burger > .elementor-widget-container {
+    position: static !important;
+  }
+  /* Selector reforzado para ganar a la regla por ID de Creative Elements */
+  .pnc-hdr-main.pnc-hdr-main .pnc-hdr-burger.pnc-hdr-burger.elementor-widget nav.elementor-nav--dropdown.elementor-nav__container {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    width: 100% !important;
+    margin-top: 0 !important;
+    max-height: calc(100dvh - 160px);
+    overflow-y: auto;
+  }
+}
+
+/* ---------------------------------------------------------
+   2f. Fondo del menú hamburguesa abierto (ver assets/js/header-menu.js)
+   El JS añade "pnc-menu-open" al body mientras el menú está abierto.
+   El fondo queda por debajo del header (z-index 100) y por encima de
+   la página; tocarlo cierra el menú.
+   --------------------------------------------------------- */
+.pnc-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: rgba(67, 83, 66, 0.35);   /* --pnc-green-dark-banner */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--pnc-dur) var(--pnc-ease),
+              visibility 0s linear var(--pnc-dur);
+}
+body.pnc-menu-open .pnc-menu-backdrop {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--pnc-dur) var(--pnc-ease);
+}
+body.pnc-menu-open {
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pnc-menu-backdrop,
+  body.pnc-menu-open .pnc-menu-backdrop {
+    transition: none;
+  }
+}

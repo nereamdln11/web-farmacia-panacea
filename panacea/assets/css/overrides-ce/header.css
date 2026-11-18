@@ -595,3 +595,25 @@
     display: none !important;
   }
 }
+
+/* ---------------------------------------------------------
+   2d. Hamburguesa o fila de menú según el ancho de pantalla
+   Creative Elements decide en el servidor qué envía según el tipo de
+   dispositivo (y el iPad con Safari se identifica como ordenador), así
+   que sus opciones "Ocultar en…" no sirven para alternar estos dos
+   elementos. Ambos van SIN ocultar en el editor y aquí se elige cuál se
+   ve, con el mismo punto de corte que Lovable (lg = 1025px).
+   Clases:
+     Widget Menú (hamburguesa)          → "pnc-hdr-burger"
+     SECCIÓN Inicio · Categorías · …    → "pnc-hdr-nav"
+   --------------------------------------------------------- */
+@media (min-width: 1025px) {
+  .pnc-hdr-burger {
+    display: none !important;
+  }
+}
+@media (max-width: 1024px) {
+  .pnc-hdr-nav {
+    display: none !important;
+  }
+}

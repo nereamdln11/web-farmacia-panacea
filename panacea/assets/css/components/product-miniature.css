@@ -102,6 +102,11 @@
     width: auto !important;
     min-width: 0;
   }
+  /* Creative Elements deja 8px de margen bajo el precio (separación
+     entre widgets): en la misma fila que el botón lo descentraba */
+  .elementor-section-wrap[data-id-product] .elementor-widget-product-miniature-price > .elementor-widget-container {
+    margin-bottom: 0 !important;
+  }
   .elementor-section-wrap[data-id-product] .ce-product-prices {
     font-size: 15px !important;
     line-height: 1.2;

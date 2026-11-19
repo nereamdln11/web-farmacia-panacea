@@ -1,0 +1,154 @@
+/* ==========================================================================
+   Farmacia Panacea — Miniatura de producto en móvil (≤767px)
+   Plantilla "Product Miniature" de Creative Elements. Basado en el
+   rediseño de Lovable (ProductCard.tsx): misma identidad, más compacta.
+   Tablet y escritorio no cambian, salvo el fondo de la imagen (abajo),
+   que se aplica en todos los tamaños.
+     · Rejilla: 2 columnas, 16px de margen a ambos lados, 12px entre tarjetas
+     · Marca 11px · nombre 14px en 2 líneas · sin estrellas
+     · Última línea: precio a la izquierda y botón redondo de 40px solo con
+       la bolsa a la derecha (el texto queda para lectores de pantalla)
+   ========================================================================== */
+
+/* Fondo de la imagen (todos los tamaños) ---------------------------------
+   Un tono casi blanco, más claro que el crema, para que las fotos con
+   fondo blanco no queden como un recuadro. multiply funde ese blanco con
+   el fondo; las fotos que ya traen fondo propio (gris de estudio) no
+   cambian. La imagen ocupa todo el hueco, como antes. */
+.elementor-section-wrap[data-id-product] .pnc-product-miniature-image {
+  background: color-mix(in srgb, var(--pnc-cream) 45%, var(--pnc-white));
+}
+.elementor-section-wrap[data-id-product] .pnc-product-miniature-image img {
+  mix-blend-mode: multiply;
+}
+
+@media (max-width: 767px) {
+
+  /* Rejilla ------------------------------------------------------------- */
+  /* La columna del listado tenía 20px de relleno solo a la izquierda
+     (heredado del escritorio, donde va junto a los filtros) */
+  .elementor-column-wrap:has(> .elementor-widget-wrap > .elementor-widget-listing-products) {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .ce-product-grid {
+    column-gap: 12px !important;
+    row-gap: 16px !important;
+  }
+
+  /* Tarjeta ------------------------------------------------------------- */
+  .elementor-section-wrap[data-id-product] {
+    border-radius: var(--pnc-radius-md);
+  }
+  /* En táctil no hay "pasar por encima": sin levantar la tarjeta */
+  .elementor-section-wrap[data-id-product]:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .elementor-section-wrap[data-id-product]:hover .pnc-product-miniature-image img {
+    transform: none;
+  }
+  /* Favoritos: sobre fondo crema el corazón blanco no se ve; círculo
+     blanco translúcido con el icono en gris, como en Lovable */
+  .elementor-section-wrap[data-id-product] .elementor-widget-product-add-to-wishlist a.ce-add-to-wishlist {
+    width: 32px !important;
+    height: 32px !important;
+    display: grid !important;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: var(--pnc-text-muted) !important;
+  }
+  .elementor-section-wrap[data-id-product] .elementor-widget-product-add-to-wishlist a.ce-add-to-wishlist i {
+    font-size: 15px !important;
+    color: inherit !important;
+  }
+
+  /* "Vista rápida" solo aparece al pasar el ratón: fuera en móvil */
+  .elementor-section-wrap[data-id-product] .elementor-widget-button:has(a[href*="quickview"]) {
+    display: none !important;
+  }
+
+  /* Bloque de texto ----------------------------------------------------- */
+  .elementor-section-wrap[data-id-product] .elementor-section:has(> .elementor-container .elementor-widget-product-miniature-name):not(:has(.pnc-product-miniature-image)) {
+    padding: 0 !important;
+  }
+  .elementor-section-wrap[data-id-product] .elementor-column-wrap:has(> .elementor-widget-wrap > .elementor-widget-product-miniature-name) {
+    padding: 10px 10px 12px !important;
+  }
+  .elementor-section-wrap[data-id-product] .elementor-widget-wrap:has(> .elementor-widget-product-miniature-name) {
+    gap: 4px 8px !important;
+  }
+
+  .pnc-product-miniature-label,
+  .pnc-product-miniature-label * {
+    font-size: 11px !important;
+    letter-spacing: 0.16em !important;   /* escritorio: 0.28em */
+  }
+
+  .elementor-section-wrap[data-id-product] .ce-product-name a {
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+    height: 2.7em !important;
+  }
+
+  .elementor-section-wrap[data-id-product] .elementor-widget-product-miniature-rating {
+    display: none !important;
+  }
+
+  /* Última línea: precio + botón del carrito ---------------------------- */
+  .elementor-section-wrap[data-id-product] .elementor-widget-product-miniature-price {
+    flex: 1 1 0 !important;
+    width: auto !important;
+    min-width: 0;
+  }
+  .elementor-section-wrap[data-id-product] .ce-product-prices {
+    font-size: 15px !important;
+    line-height: 1.2;
+  }
+  .elementor-section-wrap[data-id-product] .ce-product-prices * {
+    font-size: inherit;
+  }
+  .elementor-section-wrap[data-id-product] .ce-product-prices .ce-product-price-regular,
+  .elementor-section-wrap[data-id-product] .ce-product-prices del,
+  .elementor-section-wrap[data-id-product] .ce-product-prices s {
+    font-size: 11px !important;
+  }
+
+  .elementor-section-wrap[data-id-product] .elementor-widget-product-miniature-add-to-cart {
+    flex: none !important;
+    width: auto !important;
+    margin: 0 !important;
+  }
+  .elementor-section-wrap[data-id-product] .elementor-widget-product-miniature-add-to-cart a.elementor-button {
+    display: grid !important;
+    place-items: center;
+    width: 40px !important;
+    height: 40px !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+  }
+  .elementor-section-wrap[data-id-product] .elementor-widget-product-miniature-add-to-cart .elementor-button-content-wrapper {
+    display: grid !important;
+    place-items: center;
+  }
+  .elementor-section-wrap[data-id-product] .elementor-widget-product-miniature-add-to-cart .elementor-button-icon {
+    margin: 0 !important;
+    font-size: 18px;
+    line-height: 1;
+  }
+  /* El texto se oculta a la vista pero lo siguen leyendo los lectores
+     de pantalla ("Añadir al carrito") */
+  .elementor-section-wrap[data-id-product] .elementor-widget-product-miniature-add-to-cart .elementor-button-text {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+}

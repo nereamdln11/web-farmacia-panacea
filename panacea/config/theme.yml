@@ -64,6 +64,10 @@ assets:
         path: assets/css/components/breadcrumb.css
         media: all
         priority: 246
+      - id: panacea-product-miniature
+        path: assets/css/components/product-miniature.css
+        media: all
+        priority: 247
       - id: panacea-header
         path: assets/css/overrides-ce/header.css
         media: all

@@ -279,3 +279,67 @@
 .pnc-filters .ce-filters__toggle > a.elementor-button:hover * {
     color: var(--pnc-sage-active) !important;
 }
+/* ---------------------------------------------------------
+   Móvil (≤767px): Filtros y Ordenar en la misma fila
+   Filtros a la izquierda y "Relevancia" a la derecha, cada uno con su
+   ancho natural; el espacio sobrante queda libre entre ambos.
+   Sin clases nuevas: se localiza la fila que contiene los dos widgets
+   (Filtros con "pnc-filters" y el widget de ordenación de CE).
+   Corrige ajustes del editor que lo impedían: "min-width: 50%" en
+   Filtros (móvil) y el botón de Filtros como bloque a todo el ancho.
+   El selector se ajusta a la opción elegida (field-sizing); en
+   navegadores sin soporte usa su ancho normal, limitado al hueco libre,
+   y nunca salta de línea.
+   --------------------------------------------------------- */
+@media (max-width: 767px) {
+  .elementor-widget-wrap:has(> .pnc-filters):has(> .elementor-widget-listing-sort-order) {
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+  .elementor-widget-wrap:has(> .pnc-filters):has(> .elementor-widget-listing-sort-order) > .pnc-filters {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+  .elementor-widget-wrap:has(> .pnc-filters):has(> .elementor-widget-listing-sort-order) > .elementor-widget-listing-sort-order {
+    flex: 0 1 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+  .elementor-widget-wrap:has(> .pnc-filters) > .pnc-filters .ce-filters__toggle {
+    display: inline-flex !important;
+  }
+  .elementor-widget-wrap:has(> .pnc-filters) > .elementor-widget-listing-sort-order select {
+    width: auto !important;
+    max-width: 100% !important;
+    flex: 0 1 auto !important;
+    field-sizing: content;
+    padding-right: 36px !important;   /* hueco para la flecha */
+    padding-left: 16px !important;
+  }
+
+  /* Mismo aspecto para los dos: 40px de alto, letra de 16px (con menos,
+     el iPhone amplía la pantalla al tocar el desplegable), mismo borde
+     y mismo color de texto. Cada uno conserva su fondo. */
+  .elementor-widget-wrap:has(> .pnc-filters) > .pnc-filters .ce-filters__toggle > a.elementor-button,
+  .elementor-widget-wrap:has(> .pnc-filters) > .elementor-widget-listing-sort-order select {
+    box-sizing: border-box !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+    border: 1px solid var(--pnc-border) !important;
+    color: var(--pnc-text) !important;
+  }
+  .elementor-widget-wrap:has(> .pnc-filters) > .pnc-filters .ce-filters__toggle > a.elementor-button :is(.elementor-button-text, .elementor-button-icon) {
+    font-size: 16px !important;
+    line-height: 1 !important;
+  }
+}

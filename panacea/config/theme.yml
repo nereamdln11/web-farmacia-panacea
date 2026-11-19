@@ -68,6 +68,10 @@ assets:
         path: assets/css/components/product-miniature.css
         media: all
         priority: 247
+      - id: panacea-listing-header
+        path: assets/css/components/listing-header.css
+        media: all
+        priority: 248
       - id: panacea-header
         path: assets/css/overrides-ce/header.css
         media: all

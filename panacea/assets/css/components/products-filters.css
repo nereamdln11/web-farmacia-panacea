@@ -280,7 +280,7 @@
     color: var(--pnc-sage-active) !important;
 }
 /* ---------------------------------------------------------
-   Móvil (≤767px): Filtros y Ordenar en la misma fila
+   Móvil y tablet vertical (≤1024px): Filtros y Ordenar en la misma fila
    Filtros a la izquierda y "Relevancia" a la derecha, cada uno con su
    ancho natural; el espacio sobrante queda libre entre ambos.
    Sin clases nuevas: se localiza la fila que contiene los dos widgets
@@ -291,7 +291,7 @@
    navegadores sin soporte usa su ancho normal, limitado al hueco libre,
    y nunca salta de línea.
    --------------------------------------------------------- */
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   .elementor-widget-wrap:has(> .pnc-filters):has(> .elementor-widget-listing-sort-order) {
     flex-wrap: nowrap !important;
     justify-content: space-between !important;
@@ -341,5 +341,150 @@
   .elementor-widget-wrap:has(> .pnc-filters) > .pnc-filters .ce-filters__toggle > a.elementor-button :is(.elementor-button-text, .elementor-button-icon) {
     font-size: 16px !important;
     line-height: 1 !important;
+  }
+}
+
+/* Misma fila de controles en pantallas anchas cuando la columna lateral
+   llega sin filtros (ver "Red de seguridad" más abajo): el botón aparece
+   justo cuando desaparece la columna, con el mismo aspecto que en tablet. */
+@media (min-width: 1025px) {
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products):not(:has(.pnc-container-filters)) .elementor-widget-wrap:has(> .pnc-filters):has(> .elementor-widget-listing-sort-order) {
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products):not(:has(.pnc-container-filters)) .elementor-widget-wrap:has(> .pnc-filters):has(> .elementor-widget-listing-sort-order) > .pnc-filters {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products):not(:has(.pnc-container-filters)) .elementor-widget-wrap:has(> .pnc-filters):has(> .elementor-widget-listing-sort-order) > .elementor-widget-listing-sort-order {
+    flex: 0 1 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products):not(:has(.pnc-container-filters)) .elementor-widget-wrap:has(> .pnc-filters) > .pnc-filters .ce-filters__toggle {
+    display: inline-flex !important;
+  }
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products):not(:has(.pnc-container-filters)) .elementor-widget-wrap:has(> .pnc-filters) > .elementor-widget-listing-sort-order select {
+    width: auto !important;
+    max-width: 100% !important;
+    flex: 0 1 auto !important;
+    field-sizing: content;
+    padding-right: 36px !important;
+    padding-left: 16px !important;
+  }
+
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products):not(:has(.pnc-container-filters)) .elementor-widget-wrap:has(> .pnc-filters) > .pnc-filters .ce-filters__toggle > a.elementor-button,
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products):not(:has(.pnc-container-filters)) .elementor-widget-wrap:has(> .pnc-filters) > .elementor-widget-listing-sort-order select {
+    box-sizing: border-box !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+    border: 1px solid var(--pnc-border) !important;
+    color: var(--pnc-text) !important;
+  }
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products):not(:has(.pnc-container-filters)) .elementor-widget-wrap:has(> .pnc-filters) > .pnc-filters .ce-filters__toggle > a.elementor-button :is(.elementor-button-text, .elementor-button-icon) {
+    font-size: 16px !important;
+    line-height: 1 !important;
+  }
+
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products):not(:has(.pnc-container-filters)) .elementor-column:has(> .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-listing-sort-order) {
+    width: 100% !important;
+    order: -1;
+  }
+  /* En escritorio la fila interior no salta de línea: se permite, para que
+     los controles y los filtros activos ocupen cada uno su línea */
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products):not(:has(.pnc-container-filters)) .elementor-row:has(> .elementor-column > .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-listing-sort-order) {
+    flex-wrap: wrap !important;
+  }
+  /* Sin los rellenos laterales pensados para convivir con la columna lateral */
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products):not(:has(.pnc-container-filters)) .elementor-column-wrap:has(> .elementor-widget-wrap > .elementor-widget-listing-sort-order),
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products):not(:has(.pnc-container-filters)) .elementor-column-wrap:has(> .elementor-widget-wrap > .elementor-widget-listing-products) {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products):not(:has(.pnc-container-filters)) .elementor-column:has(> .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-listing-active-filters) {
+    width: 100% !important;
+  }
+}
+
+/* ---------------------------------------------------------
+   Columna de filtros o botón de Filtros, según el espacio real
+   Estructura del listado (plantilla de categoría de Creative Elements):
+     SECCIÓN
+       ├─ COLUMNA lateral (20%) → widget Filtros "pnc-container-filters pnc-filters"
+       └─ COLUMNA de productos (80%, 20px de relleno a la izquierda)
+            ├─ SECCIÓN interior: [filtros activos] [botón Filtros "pnc-filters" + Ordenar]
+            ├─ widget Productos
+            └─ widget Paginación
+   El problema venía de dos sitios:
+     1) Creative Elements decide en el servidor qué widgets envía según el
+        tipo de dispositivo. El iPad con Safari se presenta como ordenador
+        (no recibía el botón de Filtros, oculto en escritorio) y con otros
+        navegadores como tablet (no recibía la columna lateral, oculta en
+        tablet, y la columna quedaba vacía ocupando su 20%).
+     2) Entre 1025 y 1279px la columna lateral convivía con 4 productos
+        por fila: tarjetas de ~185px y el texto del botón en dos líneas.
+   Solución: en el editor, los dos widgets de Filtros van SIN "Ocultar en
+   escritorio/tablet" (el lateral puede seguir oculto en móvil) y aquí se
+   decide qué se ve por ancho de pantalla:
+     ≤1024px  (móvil, tablet vertical): sin columna lateral (ni su hueco),
+              productos al 100% y botón Filtros + Ordenar en una fila.
+     ≥1025px  (tablet horizontal, escritorio): columna lateral visible y
+              botón oculto; de 1025 a 1279px, 3 productos por fila.
+   --------------------------------------------------------- */
+@media (max-width: 1024px) {
+  /* La columna lateral desaparece entera, sin dejar hueco */
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products) > .elementor-column:not(:has(.elementor-widget-listing-products)) {
+    display: none !important;   /* columna lateral, llegue con su widget o vacía */
+  }
+  /* La columna de productos ocupa todo el ancho, sin el relleno lateral */
+  .elementor-column:has(> .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-listing-products) {
+    width: 100% !important;
+  }
+  .elementor-column-wrap:has(> .elementor-widget-wrap > .elementor-widget-listing-products) {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  /* Fila de controles: la columna con Filtros + Ordenar a todo el ancho
+     y primero; los filtros activos (si los hay) debajo */
+  .elementor-column:has(> .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-listing-sort-order) {
+    width: 100% !important;
+    order: -1;
+  }
+  .elementor-column:has(> .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-listing-active-filters) {
+    width: 100% !important;
+  }
+}
+@media (min-width: 1025px) {
+  /* Con la columna lateral visible, el botón de Filtros sobra */
+  .elementor-section:has(.pnc-container-filters) .pnc-filters:not(.pnc-container-filters) {
+    display: none !important;
+  }
+  /* Red de seguridad: si el servidor no envía el widget lateral (el
+     dispositivo se identifica como tablet y el widget sigue con "Ocultar
+     en tablet"), su columna llegaría vacía y ocuparía su 20%. Se oculta,
+     los productos ocupan todo el ancho y queda el botón de Filtros. */
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products):not(:has(.pnc-container-filters)) > .elementor-column:not(:has(.elementor-widget-listing-products)) {
+    display: none !important;
+  }
+  .elementor-row:has(> .elementor-column .elementor-widget-listing-products):not(:has(.pnc-container-filters)) > .elementor-column:has(.elementor-widget-listing-products) {
+    width: 100% !important;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1279px) {
+  /* Tablet horizontal con columna lateral: 3 productos por fila (con 4,
+     tarjetas de ~185px y el texto del botón en dos líneas). Sin columna
+     lateral se mantienen los 4 de Creative Elements (~265px). */
+  .elementor-row:has(.pnc-container-filters) .elementor-widget-listing-products .ce-product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   }
 }

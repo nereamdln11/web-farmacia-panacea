@@ -1,0 +1,33 @@
+/* ==========================================================================
+   Farmacia Panacea — Cabecera de los listados (categoría y marca)
+   Tarjeta con título, descripción e imagen (clase "pnc-container-2xl-principal")
+   que va antes de los filtros y la rejilla de productos.
+   ========================================================================== */
+/* ---------------------------------------------------------
+   Cabecera del listado (tarjeta con título, descripción e imagen de la
+   categoría o marca, clase "pnc-container-2xl-principal")
+   1) Tablet: las columnas son 70,014% + 30% (suman más del 100%) y en
+      tablet la fila puede saltar de línea, así que la imagen bajaba
+      debajo del texto, pequeña y a la izquierda. Desde 768px la fila no
+      salta: texto a la izquierda e imagen a la derecha, como en escritorio.
+   2) Separación con la sección de filtros y productos según el
+      dispositivo (antes 60px en todos): 32 / 48 / 64px.
+   --------------------------------------------------------- */
+@media (min-width: 768px) {
+  .pnc-container-2xl-principal > .elementor-container > .elementor-row {
+    flex-wrap: nowrap !important;
+  }
+}
+.pnc-container-2xl-principal:has(+ .elementor-top-section .elementor-widget-listing-products) {
+  margin-bottom: var(--pnc-space-8) !important;   /* escritorio: 64px */
+}
+@media (max-width: 1024px) {
+  .pnc-container-2xl-principal:has(+ .elementor-top-section .elementor-widget-listing-products) {
+    margin-bottom: var(--pnc-space-7) !important; /* tablet: 48px */
+  }
+}
+@media (max-width: 767px) {
+  .pnc-container-2xl-principal:has(+ .elementor-top-section .elementor-widget-listing-products) {
+    margin-bottom: var(--pnc-space-6) !important; /* móvil: 32px */
+  }
+}

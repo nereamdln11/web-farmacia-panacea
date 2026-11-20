@@ -6,7 +6,11 @@
    - Barra de envío gratis (49 €).
    - En cada producto: marca, selector de cantidad (− cantidad +), precio
      de la línea y, si hay descuento, precio original tachado y −%.
-   - Línea "Pago seguro · Recogida en farmacia" bajo los botones.
+     El + respeta el stock: si el producto no admite pedidos sin stock,
+     se desactiva al llegar a las unidades disponibles (y avisa si en el
+     carrito ya hay más de las que quedan). Si PrestaShop rechaza el
+     cambio, se muestra su mensaje en el panel.
+   - Línea "Pago contrarreembolso · Recogida en farmacia" bajo los botones.
    - Carrito vacío: mete dentro del panel la sección de Creative Elements
      con la clase "pnc-cart-empty" (categorías, promociones, recomendados).
    Creative Elements vuelve a pintar el panel en cada cambio del carrito
@@ -21,7 +25,7 @@
 
   var FREE_SHIPPING = 49;          // € — envío gratis a partir de aquí
   var SHOW_SHIPPING_BAR = true;    // false: oculta la barra (p. ej. solo recogida)
-  var NOTE = 'Pago seguro · Recogida en farmacia';
+  var NOTE = 'Pago contrarreembolso · Recogida en farmacia';
 
   var money = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
 
@@ -79,10 +83,16 @@
       main.insertBefore(empty, products.nextSibling);
     }
 
-    // "Pago seguro · Recogida en farmacia"
+    // Línea bajo los botones (NOTE)
     if (footer) {
       footer.parentNode.insertBefore(el('p', 'pnc-cart-note', ICONS.shield + '<span>' + NOTE + '</span>'), footer.nextSibling);
     }
+
+    // Mensaje de error de PrestaShop (p. ej. no hay más stock)
+    var error = el('p', 'pnc-cart-error');
+    error.setAttribute('role', 'alert');
+    error.hidden = true;
+    main.insertBefore(error, products.nextSibling);
 
     var cart = window.prestashop.cart || null;
     var pending = false;
@@ -148,6 +158,9 @@
       }
 
       var qty = +p.quantity || 1;
+      // Sin "permitir pedidos sin stock": tope en las unidades disponibles
+      var limited = !+p.allow_oosp && p.stock_quantity !== undefined && p.stock_quantity !== null;
+      var stock = limited ? Math.max(0, +p.stock_quantity) : Infinity;
       var line = el('div', 'pnc-cart-line');
 
       var group = el('div', 'pnc-qty');
@@ -162,7 +175,10 @@
       up.type = 'button';
       up.dataset.url = p.up_quantity_url || '';
       up.setAttribute('aria-label', 'Aumentar cantidad de ' + name);
-      up.disabled = !p.up_quantity_url;
+      up.disabled = !p.up_quantity_url || qty >= stock;
+      if (qty >= stock) {
+        up.title = stock === 1 ? 'Solo queda 1 unidad' : 'Solo quedan ' + stock + ' unidades';
+      }
       [down, up].forEach(function (b) {
         b.dataset.idProduct = p.id_product;
         b.dataset.idProductAttribute = p.id_product_attribute;
@@ -198,6 +214,14 @@
       price.innerHTML = '';
       price.appendChild(line);
       info.appendChild(price);
+
+      if (qty > stock) {
+        var warn = el('p', 'pnc-cart-stock');
+        warn.textContent = stock === 0
+          ? 'Ahora mismo no queda stock de este producto'
+          : (stock === 1 ? 'Solo queda 1 unidad' : 'Solo quedan ' + stock + ' unidades');
+        info.appendChild(warn);
+      }
     }
 
     // − / +: mismas URL que la página del carrito
@@ -222,16 +246,33 @@
         dataType: 'json',
         data: { ajax: 1, action: 'update' }
       }).then(function (resp) {
+        if (resp && resp.hasError) {
+          showError(resp.errors);
+          row.removeAttribute('inert');
+          row.removeAttribute('aria-disabled');
+          return;
+        }
         window.prestashop.emit('updateCart', { reason: reason, resp: resp });
       }).fail(function (resp) {
+        showError();
         row.removeAttribute('inert');
         row.removeAttribute('aria-disabled');
         window.prestashop.emit('handleError', { eventType: 'updateProductInCart', resp: resp, cartAction: reason.linkAction });
       });
     });
 
+    function showError(errors) {
+      // PrestaShop puede mandar los errores como lista o como objeto
+      var list = Array.isArray(errors) ? errors
+        : (errors && typeof errors === 'object' ? Object.values(errors) : [errors]);
+      var text = list.filter(function (e) { return typeof e === 'string' && e; }).join(' ');
+      error.textContent = text || 'No se ha podido cambiar la cantidad. Inténtalo de nuevo.';
+      error.hidden = false;
+    }
+
     window.prestashop.on('updateCart', function (data) {
       if (data && data.resp && data.resp.cart) {
+        error.hidden = true;
         cart = data.resp.cart;
         schedule();
       }

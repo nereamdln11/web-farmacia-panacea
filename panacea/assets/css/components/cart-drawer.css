@@ -8,7 +8,7 @@
      · Velo verde oscuro al 45 %
      · Cabecera, barra de envío y pie fijos; la lista hace scroll sola
      · Márgenes de 24px; filas de 20px arriba y abajo con líneas grises
-     · Imagen 72×72 sobre crema · marca 10px · nombre 14/20 en 2 líneas
+     · Imagen 72×72 a sangre sobre crema · marca 10px · nombre 14/20 en 2 líneas
      · Cantidad (− n +) de 40px · total 24px · botones de 48px
    ========================================================================== */
 
@@ -23,6 +23,22 @@
 }
 html:has(.elementor-cart__container[open]) {
   overflow: hidden;
+}
+
+/* Entrada desde la derecha ---------------------------------------------
+   Creative Elements abre el <dialog> y le pone la clase "shown" en el
+   mismo instante, así que no había estado inicial que animar y el panel
+   aparecía de golpe. @starting-style le da ese punto de partida: fuera de
+   la pantalla a la derecha y el velo transparente. (Al cerrar ya se
+   animaba.) */
+@starting-style {
+  .elementor-cart__container.elementor-cart--shown {
+    background-color: rgb(67 83 66 / 0) !important;
+  }
+  .elementor-cart__container.elementor-cart--shown .elementor-cart__main {
+    opacity: 0;
+    transform: translateX(100%);
+  }
 }
 
 /* Panel ----------------------------------------------------------------- */
@@ -162,8 +178,8 @@ html:has(.elementor-cart__container[open]) {
 .elementor-cart__main .elementor-cart__product-image img {
   width: 100% !important;
   height: 100% !important;
-  padding: 4px;
-  object-fit: contain;
+  padding: 0;
+  object-fit: cover;              /* ocupa todo el cuadrado, como en las miniaturas */
   mix-blend-mode: multiply;
 }
 
@@ -188,10 +204,11 @@ html:has(.elementor-cart__container[open]) {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  height: 40px;                         /* siempre 2 líneas, aunque quepa en 1 */
   margin-top: 4px;
   font-size: 14px !important;
   line-height: 20px !important;
-  font-weight: var(--pnc-fw-medium) !important;
+  font-weight: var(--pnc-fw-regular) !important;   /* Outfit solo tiene 400/500: 400 */
   color: var(--pnc-text) !important;
 }
 .elementor-cart__main .elementor-cart__product-name > a:hover {
@@ -282,6 +299,27 @@ html:has(.elementor-cart__container[open]) {
   font-size: 10px;
   line-height: 14px;
   font-weight: var(--pnc-fw-medium);
+}
+
+/* Aviso de stock bajo el producto y error de PrestaShop */
+.pnc-cart-stock {
+  margin: var(--pnc-space-2) 0 0;
+  font-size: 12px;
+  line-height: 16px;
+  color: #B42318;
+}
+.pnc-cart-error {
+  flex-shrink: 0;
+  margin: 0 var(--pnc-space-5) var(--pnc-space-3);
+  padding: var(--pnc-space-2) var(--pnc-space-3);
+  border-radius: var(--pnc-radius-sm);
+  background: #FEF3F2;
+  font-size: 12px;
+  line-height: 16px;
+  color: #B42318;
+}
+.pnc-cart-error[hidden] {
+  display: none;
 }
 
 /* Papelera: discreta, 40px */
@@ -457,7 +495,10 @@ html:has(.elementor-cart__container[open]) {
   margin: 0 !important;
 }
 
-/* Icono, título y texto centrados */
+/* Icono, título y texto centrados.
+   Ojo: las miniaturas de la rejilla también son columnas y widgets de
+   Creative Elements (el nombre es un widget "heading", el botón de añadir
+   un widget "button"), por eso estas reglas excluyen .pnc-cart-recos */
 .pnc-cart-empty .elementor-widget-icon {
   padding-top: 20px;
   text-align: center;
@@ -479,11 +520,11 @@ html:has(.elementor-cart__container[open]) {
   height: 48px !important;
   font-size: 48px !important;
 }
-.pnc-cart-empty .elementor-widget-heading:not(.pnc-cart-recos) {
+.pnc-cart-empty .elementor-widget-heading:not(.pnc-cart-recos *) {
   margin-top: var(--pnc-space-4) !important;
   text-align: center;
 }
-.pnc-cart-empty .elementor-widget-heading .elementor-heading-title {
+.pnc-cart-empty .elementor-widget-heading:not(.pnc-cart-recos *) .elementor-heading-title {
   font-family: var(--pnc-font-display) !important;
   font-size: 24px !important;
   line-height: 32px !important;
@@ -532,15 +573,15 @@ html:has(.elementor-cart__container[open]) {
 }
 
 /* "Ver promociones" */
-.pnc-cart-empty .elementor-top-column > .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-button {
+.pnc-cart-empty .elementor-top-column > .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-button:not(.pnc-cart-recos *) {
   margin-top: var(--pnc-space-4) !important;
 }
-.pnc-cart-empty .elementor-top-column > .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-button .elementor-button {
+.pnc-cart-empty .elementor-top-column > .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-button:not(.pnc-cart-recos *) .elementor-button {
   height: 48px;
   min-height: 0;
   font-size: 14px !important;
 }
-.pnc-cart-empty .elementor-top-column > .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-button .elementor-button-text::after {
+.pnc-cart-empty .elementor-top-column > .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-button:not(.pnc-cart-recos *) .elementor-button-text::after {
   content: "→";
   margin-left: var(--pnc-space-2);
 }
@@ -554,7 +595,7 @@ html:has(.elementor-cart__container[open]) {
   padding-top: var(--pnc-space-5) !important;  /* 24px */
   border-top: 1px solid var(--pnc-border);
 }
-.pnc-cart-empty .pnc-cart-recos :is(h2, h3, h4, .elementor-heading-title) {
+.pnc-cart-empty .pnc-cart-recos :is(h2, h3, h4):not([data-id-product] *) {
   margin: 0 0 var(--pnc-space-2) !important;
   font-family: var(--pnc-font-display) !important;
   font-size: 20px !important;
@@ -563,4 +604,11 @@ html:has(.elementor-cart__container[open]) {
   letter-spacing: 0 !important;
   text-align: left;
   color: var(--pnc-text) !important;
+}
+
+/* Una sola columna en todos los tamaños, aunque en Creative Elements se
+   pongan más columnas para tablet o móvil (en tablet salían 2 y se pisaban) */
+.pnc-cart-empty .pnc-cart-recos .ce-product-grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+  column-gap: 0 !important;
 }

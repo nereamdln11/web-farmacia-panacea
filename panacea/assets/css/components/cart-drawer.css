@@ -1,0 +1,566 @@
+/* ==========================================================================
+   Farmacia Panacea — Carrito desplegable (panel lateral)
+   Widget "Carrito" de Creative Elements en el header + la sección
+   .pnc-cart-empty (carrito vacío), que cart-drawer.js mete en el panel.
+   Basado en CartDrawer.tsx de Lovable:
+     · Panel a la derecha: 400px desde tablet (esquinas izquierdas de 24px),
+       ancho completo en móvil, alto de pantalla
+     · Velo verde oscuro al 45 %
+     · Cabecera, barra de envío y pie fijos; la lista hace scroll sola
+     · Márgenes de 24px; filas de 20px arriba y abajo con líneas grises
+     · Imagen 72×72 sobre crema · marca 10px · nombre 14/20 en 2 líneas
+     · Cantidad (− n +) de 40px · total 24px · botones de 48px
+   ========================================================================== */
+
+/* Fuera del panel la sección del carrito vacío no se ve ------------------ */
+.elementor-section-wrap > .pnc-cart-empty {
+  display: none !important;
+}
+
+/* Velo y bloqueo del scroll de la página -------------------------------- */
+.elementor-cart__container.elementor-cart--shown {
+  background-color: rgb(67 83 66 / 0.45) !important;
+}
+html:has(.elementor-cart__container[open]) {
+  overflow: hidden;
+}
+
+/* Panel ----------------------------------------------------------------- */
+.elementor-widget-shopping-cart .elementor-cart__main {
+  width: 100% !important;
+  max-width: 100%;
+  height: 100dvh;
+  padding: 0 !important;
+  overflow: hidden;
+  background: var(--pnc-white);
+  color: var(--pnc-text);
+  font-family: var(--pnc-font-body);
+  box-shadow: var(--pnc-shadow-lift) !important;
+}
+@media (min-width: 768px) {
+  .elementor-widget-shopping-cart .elementor-cart__main {
+    width: 400px !important;
+    border-radius: var(--pnc-radius-xl) 0 0 var(--pnc-radius-xl);
+  }
+}
+
+/* Cabecera: "Mi carrito" · contador · ✕ ---------------------------------- */
+.pnc-cart-head {
+  display: flex;
+  align-items: center;
+  gap: var(--pnc-space-3);
+  flex-shrink: 0;
+  padding: 20px var(--pnc-space-5);
+  border-bottom: 1px solid var(--pnc-border);
+}
+.pnc-cart-head .elementor-cart__title {
+  min-height: 0 !important;             /* Creative Elements le da 65px */
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: var(--pnc-font-display) !important;
+  font-size: 30px !important;
+  line-height: 36px !important;
+  font-weight: var(--pnc-fw-medium) !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--pnc-text) !important;
+}
+.pnc-cart-count {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--pnc-sage-soft) !important;   /* custom.css: a, span transparentes */
+  color: var(--pnc-green-dark-banner);
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+.pnc-cart-head .elementor-cart__close-button {
+  position: static !important;
+  display: grid !important;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin: 0 0 0 auto !important;
+  border-radius: 50%;
+  font-size: 16px !important;
+  color: var(--pnc-text) !important;
+  transition: background-color var(--pnc-dur) var(--pnc-ease);
+}
+.pnc-cart-head .elementor-cart__close-button:hover {
+  background: var(--pnc-sage-soft) !important;
+}
+
+/* Barra de envío gratis ------------------------------------------------- */
+.pnc-cart-ship {
+  flex-shrink: 0;
+  padding: 20px var(--pnc-space-5);
+  border-bottom: 1px solid var(--pnc-border);
+  background: var(--pnc-cream);
+}
+.pnc-cart-ship[hidden] {
+  display: none;
+}
+.pnc-cart-ship__text {
+  display: flex;
+  align-items: center;
+  gap: var(--pnc-space-2);
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+.pnc-cart-ship__text svg {
+  flex-shrink: 0;
+  color: var(--pnc-green-dark-banner);
+}
+.pnc-cart-ship__track {
+  height: 6px;
+  margin-top: var(--pnc-space-3);
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pnc-sage) 20%, transparent);
+}
+.pnc-cart-ship__bar {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: var(--pnc-sage);
+  transition: width var(--pnc-dur) var(--pnc-ease);
+}
+
+/* Lista de productos (scroll propio) ------------------------------------- */
+.elementor-cart__main .elementor-cart__products {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0 !important;
+  padding: 0 var(--pnc-space-5) !important;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.elementor-cart__main .elementor-cart__product {
+  display: flex !important;
+  align-items: flex-start;
+  gap: var(--pnc-space-3);
+  margin: 0 !important;
+  padding: 20px 0 !important;
+  border: 0 !important;
+}
+.elementor-cart__main .elementor-cart__product + .elementor-cart__product {
+  border-top: 1px solid var(--pnc-border) !important;
+}
+.elementor-cart__main .elementor-cart__product[inert] {
+  opacity: 0.5;
+}
+
+.elementor-cart__main .elementor-cart__product-image {
+  flex: 0 0 72px;
+  width: 72px !important;
+  height: 72px;
+  overflow: hidden;
+  border-radius: var(--pnc-radius-md);
+  background: var(--pnc-cream) !important;   /* custom.css: a transparentes */
+}
+.elementor-cart__main .elementor-cart__product-image img {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 4px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.elementor-cart__main .elementor-cart__product-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.pnc-cart-brand {
+  overflow: hidden;
+  font-size: 10px;
+  line-height: 15px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--pnc-text-muted);
+}
+.elementor-cart__main .elementor-cart__product-name > a {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: 4px;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  font-weight: var(--pnc-fw-medium) !important;
+  color: var(--pnc-text) !important;
+}
+.elementor-cart__main .elementor-cart__product-name > a:hover {
+  color: var(--pnc-green-dark-banner) !important;
+}
+.elementor-cart__main .elementor-cart__product-attrs {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--pnc-text-muted);
+}
+
+/* Cantidad + precio de la línea */
+.elementor-cart__main .elementor-cart__product-price {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 14px !important;
+  color: var(--pnc-text) !important;
+}
+.pnc-cart-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pnc-space-2);
+  margin-top: var(--pnc-space-3);
+}
+.pnc-qty {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  border: 1px solid var(--pnc-border);
+  border-radius: 999px;
+}
+.pnc-qty__btn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--pnc-text);
+  cursor: pointer;
+  transition: background-color var(--pnc-dur) var(--pnc-ease);
+}
+.pnc-qty__btn:hover:not(:disabled) {
+  background: var(--pnc-sage-soft);
+}
+.pnc-qty__btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.pnc-qty__value {
+  min-width: 20px;
+  font-size: 12px;
+  text-align: center;
+}
+.pnc-cart-prices {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  margin-left: auto;
+}
+.pnc-cart-price {
+  font-size: 14px;
+  font-weight: var(--pnc-fw-semibold);
+  white-space: nowrap;
+}
+.pnc-cart-was {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.pnc-cart-was del {
+  font-size: 11px;
+  white-space: nowrap;
+  color: var(--pnc-text-muted);
+}
+.pnc-cart-off {
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--pnc-sage-soft) !important;
+  color: var(--pnc-green-dark-banner);
+  font-size: 10px;
+  line-height: 14px;
+  font-weight: var(--pnc-fw-medium);
+}
+
+/* Papelera: discreta, 40px */
+.elementor-cart__main .elementor-cart__product-remove {
+  position: static !important;
+  display: grid !important;
+  place-items: center;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  margin: 0 !important;
+  border-radius: 50%;
+  font-size: 16px !important;
+  color: var(--pnc-text-muted) !important;
+  transition: color var(--pnc-dur) var(--pnc-ease), background-color var(--pnc-dur) var(--pnc-ease);
+}
+.elementor-cart__main .elementor-cart__product-remove:hover {
+  background: var(--pnc-sage-soft) !important;
+  color: #B42318 !important;
+}
+
+/* Pie: subtotal, envío, total, botones ----------------------------------- */
+.elementor-cart__main .elementor-cart__summary {
+  display: grid !important;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--pnc-space-2) 0;            /* sin hueco: la línea del total sigue */
+  flex-shrink: 0;
+  margin: 0 !important;
+  padding: var(--pnc-space-5) var(--pnc-space-5) 0 !important;
+  border-top: 1px solid var(--pnc-border) !important;
+  border-bottom: 0 !important;
+  font-size: 14px !important;
+  line-height: 20px;
+}
+.elementor-cart__main .elementor-cart__summary-label {
+  margin: 0 !important;
+  font-weight: var(--pnc-fw-regular) !important;
+  color: var(--pnc-text-muted) !important;
+}
+.elementor-cart__main .elementor-cart__summary-value {
+  margin: 0 !important;
+  text-align: right;
+  color: var(--pnc-text) !important;
+}
+/* Total: separado por una línea y destacado */
+.elementor-cart__main strong.elementor-cart__summary-label,
+.elementor-cart__main strong.elementor-cart__summary-value {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  margin-top: 4px !important;
+  padding-top: var(--pnc-space-3);
+  border-top: 1px solid var(--pnc-border);
+}
+.elementor-cart__main strong.elementor-cart__summary-label {
+  font-weight: var(--pnc-fw-medium) !important;
+  color: var(--pnc-text) !important;
+}
+.elementor-cart__main strong.elementor-cart__summary-value {
+  justify-content: flex-end;
+  font-size: 24px !important;
+  line-height: 32px;
+  font-weight: var(--pnc-fw-semibold) !important;
+}
+.elementor-cart__main .elementor-alert {
+  margin: var(--pnc-space-3) var(--pnc-space-5) 0 !important;
+}
+
+.elementor-cart__main .elementor-cart__footer-buttons {
+  display: flex !important;
+  flex-direction: column;
+  gap: var(--pnc-space-2);
+  flex-shrink: 0;
+  margin: 0 !important;
+  padding: 20px var(--pnc-space-5) 0 !important;
+  border: 0 !important;
+}
+.elementor-cart__main .elementor-cart__footer-buttons > div {
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+/* Primero "Tramitar pedido" (salvia), debajo "Ver carrito" (borde gris) */
+.elementor-cart__main .elementor-cart__footer-buttons > div:has(.elementor-button--checkout) {
+  order: -1;
+}
+.elementor-cart__main .elementor-cart__footer-buttons .elementor-button {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pnc-space-2);
+  width: 100%;
+  height: 48px;
+  min-height: 0;
+  padding: 0 var(--pnc-space-5) !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+  font-size: 14px !important;
+  font-weight: var(--pnc-fw-medium) !important;
+  transition: background-color var(--pnc-dur) var(--pnc-ease), border-color var(--pnc-dur) var(--pnc-ease);
+}
+.elementor-cart__main .elementor-button--checkout {
+  border: 1px solid var(--pnc-sage) !important;
+  background: var(--pnc-sage) !important;
+  color: var(--pnc-white) !important;
+}
+.elementor-cart__main .elementor-button--checkout:hover {
+  background: color-mix(in srgb, var(--pnc-sage) 90%, black) !important;
+}
+.elementor-cart__main .elementor-button--checkout .elementor-button-text::after {
+  content: "→";
+  margin-left: var(--pnc-space-2);
+}
+.elementor-cart__main .elementor-button--cart {
+  border: 1px solid var(--pnc-border) !important;
+  background: var(--pnc-white) !important;
+  color: var(--pnc-text) !important;
+}
+.elementor-cart__main .elementor-button--cart:hover {
+  background: var(--pnc-sage-soft) !important;
+}
+.elementor-cart__main .elementor-button--checkout[aria-disabled="true"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.pnc-cart-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-shrink: 0;
+  margin: 0;
+  padding: var(--pnc-space-4) var(--pnc-space-5) max(var(--pnc-space-5), env(safe-area-inset-bottom));
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--pnc-text-muted);
+}
+
+/* Carrito vacío ---------------------------------------------------------- */
+.elementor-cart__main.pnc-cart--empty .pnc-cart-ship,
+.elementor-cart__main.pnc-cart--empty .elementor-cart__products,
+.elementor-cart__main.pnc-cart--empty .elementor-cart__empty-message,
+.elementor-cart__main.pnc-cart--empty .elementor-cart__summary,
+.elementor-cart__main.pnc-cart--empty .elementor-cart__footer-buttons,
+.elementor-cart__main.pnc-cart--empty .pnc-cart-note {
+  display: none !important;
+}
+.elementor-cart__main .pnc-cart-empty {
+  display: none;
+}
+.elementor-cart__main.pnc-cart--empty .pnc-cart-empty {
+  display: block;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0 !important;
+  padding: var(--pnc-space-5) !important;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.pnc-cart-empty > .elementor-container {
+  max-width: none !important;
+}
+.pnc-cart-empty .elementor-column-wrap,
+.pnc-cart-empty .elementor-widget-wrap {
+  padding: 0 !important;
+}
+.pnc-cart-empty .elementor-widget:not(:last-child) {
+  margin-bottom: 0 !important;
+}
+.pnc-cart-empty .elementor-widget > .elementor-widget-container {
+  margin: 0 !important;
+}
+
+/* Icono, título y texto centrados */
+.pnc-cart-empty .elementor-widget-icon {
+  padding-top: 20px;
+  text-align: center;
+}
+/* El panel está dentro del widget Carrito, que lleva "pnc-hdr-icon": hay que
+   anular el círculo de 40px de los iconos del header (header.css) */
+.elementor-widget-shopping-cart .elementor-cart__main .pnc-cart-empty .elementor-element.elementor-widget-icon .elementor-widget-container .elementor-icon,
+.elementor-widget-shopping-cart .elementor-cart__main .pnc-cart-empty .elementor-element.elementor-widget-icon .elementor-widget-container .elementor-icon:is(:hover, :focus-visible) {
+  display: inline-flex !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  font-size: 48px !important;
+  color: var(--pnc-sage) !important;
+}
+.elementor-widget-shopping-cart .elementor-cart__main .pnc-cart-empty .elementor-element.elementor-widget-icon .elementor-widget-container .elementor-icon :is(i, svg) {
+  width: 48px !important;
+  height: 48px !important;
+  font-size: 48px !important;
+}
+.pnc-cart-empty .elementor-widget-heading:not(.pnc-cart-recos) {
+  margin-top: var(--pnc-space-4) !important;
+  text-align: center;
+}
+.pnc-cart-empty .elementor-widget-heading .elementor-heading-title {
+  font-family: var(--pnc-font-display) !important;
+  font-size: 24px !important;
+  line-height: 32px !important;
+  font-weight: var(--pnc-fw-medium) !important;
+  letter-spacing: 0 !important;
+  color: var(--pnc-text) !important;
+}
+.pnc-cart-empty .elementor-widget-text-editor {
+  margin-top: var(--pnc-space-2) !important;
+  padding-bottom: 20px;
+  text-align: center;
+}
+.pnc-cart-empty .elementor-widget-text-editor,
+.pnc-cart-empty .elementor-widget-text-editor p {
+  margin-bottom: 0;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: var(--pnc-text-muted) !important;
+}
+
+/* Categorías: 2 columnas, 8px entre botones */
+.pnc-cart-empty .elementor-inner-section {
+  margin: 0 !important;
+}
+.pnc-cart-empty .elementor-inner-section > .elementor-container > .elementor-row,
+.pnc-cart-empty .elementor-inner-section > .elementor-container:not(:has(> .elementor-row)) {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--pnc-space-2);
+}
+.pnc-cart-empty .elementor-inner-section .elementor-column {
+  width: auto !important;
+}
+.pnc-cart-empty .elementor-inner-section .elementor-widget-wrap {
+  display: flex !important;
+  flex-direction: column;
+  gap: var(--pnc-space-2);
+}
+.pnc-cart-empty .elementor-inner-section .elementor-button {
+  min-height: 40px;
+  height: auto;
+  padding: var(--pnc-space-2) var(--pnc-space-3) !important;
+  font-size: 12px !important;
+  line-height: 16px !important;
+  white-space: normal;
+}
+
+/* "Ver promociones" */
+.pnc-cart-empty .elementor-top-column > .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-button {
+  margin-top: var(--pnc-space-4) !important;
+}
+.pnc-cart-empty .elementor-top-column > .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-button .elementor-button {
+  height: 48px;
+  min-height: 0;
+  font-size: 14px !important;
+}
+.pnc-cart-empty .elementor-top-column > .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-button .elementor-button-text::after {
+  content: "→";
+  margin-left: var(--pnc-space-2);
+}
+
+/* "Te puede interesar" -------------------------------------------------
+   Como en Lovable (mt-8 border-t pt-6): una línea gris encima del título
+   lo separa de las categorías y de "Ver promociones".
+   Clase pnc-cart-recos en el widget Rejilla de productos (Avanzado). */
+.pnc-cart-empty .pnc-cart-recos {
+  margin-top: var(--pnc-space-6) !important;   /* 32px */
+  padding-top: var(--pnc-space-5) !important;  /* 24px */
+  border-top: 1px solid var(--pnc-border);
+}
+.pnc-cart-empty .pnc-cart-recos :is(h2, h3, h4, .elementor-heading-title) {
+  margin: 0 0 var(--pnc-space-2) !important;
+  font-family: var(--pnc-font-display) !important;
+  font-size: 20px !important;
+  line-height: 28px !important;
+  font-weight: var(--pnc-fw-medium) !important;
+  letter-spacing: 0 !important;
+  text-align: left;
+  color: var(--pnc-text) !important;
+}

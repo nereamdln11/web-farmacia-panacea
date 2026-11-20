@@ -1,0 +1,212 @@
+/* ==========================================================================
+   Farmacia Panacea — Miniatura de producto horizontal con botón de añadir
+   Plantilla "FP_Product_Mini_Horizontal_AddCart" de Creative Elements: una sección
+   con la clase .pnc-mini-h-add y 3 columnas:
+     1 · imagen  ·  2 · marca + nombre + precio  ·  3 · añadir al carrito
+   Uso: recomendados del carrito vacío (y donde haga falta una fila
+   compacta). Basado en CartDrawer.tsx de Lovable:
+     · Imagen 72×72, radio 12px, fondo crema, contenida con 4px de aire
+     · Marca 10px mayúsculas con letras separadas · nombre 14/20 en 2 líneas · precio 14px
+     · Precio original tachado 11px + descuento en píldora salvia suave
+     · Botón redondo de 40px solo con la bolsa (texto para lectores)
+     · Rejilla en una columna: 16px arriba y abajo de cada artículo y una
+       línea gris (borde superior) separándolos, como divide-y en Lovable
+   Todo va acotado a .pnc-mini-h-add para no tocar la tarjeta vertical
+   (product-miniature.css), cuyas reglas de móvil también la alcanzarían.
+   ========================================================================== */
+
+/* Tarjeta: sin fondo, sin radio y sin levantarse al pasar el ratón -------- */
+.elementor-section-wrap[data-id-product]:has(> .pnc-mini-h-add),
+.elementor-section-wrap[data-id-product]:has(> .pnc-mini-h-add):hover {
+  background: transparent !important;
+  border: 0 !important;                 /* custom.css recuadra la tarjeta */
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+.pnc-mini-h-add {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Rejilla: una fila por artículo separadas por una línea gris ----------- */
+.ce-product-grid:has(.pnc-mini-h-add) {
+  row-gap: 0 !important;
+}
+.ce-product-grid:has(.pnc-mini-h-add) > * {
+  padding: var(--pnc-space-4) 0;        /* 16px */
+}
+.ce-product-grid:has(.pnc-mini-h-add) > * + * {
+  border-top: 1px solid var(--pnc-border);
+}
+
+/* Fila: imagen | texto | botón ------------------------------------------- */
+.pnc-mini-h-add > .elementor-container,
+.pnc-mini-h-add > .elementor-container > .elementor-row {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: var(--pnc-space-3);             /* 12px */
+  max-width: none !important;
+}
+.pnc-mini-h-add > .elementor-container > .elementor-row {
+  width: 100%;
+}
+.pnc-mini-h-add .elementor-column {
+  width: auto !important;
+  min-width: 0;
+}
+.pnc-mini-h-add .elementor-column-wrap {
+  padding: 0 !important;
+}
+.pnc-mini-h-add .elementor-column:has(.elementor-widget-product-miniature-image) {
+  flex: 0 0 72px !important;
+}
+.pnc-mini-h-add .elementor-column:has(.elementor-widget-product-miniature-name) {
+  flex: 1 1 auto !important;
+}
+.pnc-mini-h-add .elementor-column:has(.elementor-widget-product-miniature-add-to-cart) {
+  flex: none !important;
+}
+/* Sin el margen inferior que Creative Elements deja entre widgets */
+.pnc-mini-h-add .elementor-widget > .elementor-widget-container {
+  margin: 0 !important;
+}
+.pnc-mini-h-add .elementor-widget-wrap {
+  gap: 2px !important;
+}
+.pnc-mini-h-add .elementor-widget:not(:last-child) {
+  margin-bottom: 0 !important;
+}
+
+/* Imagen ---------------------------------------------------------------- */
+.pnc-mini-h-add .elementor-widget-product-miniature-image,
+.pnc-mini-h-add .elementor-widget-product-miniature-image a {
+  display: block;
+  width: 72px;
+  height: 72px;
+}
+.pnc-mini-h-add .elementor-widget-product-miniature-image .elementor-widget-container {
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  border-radius: var(--pnc-radius-md);
+  background: var(--pnc-cream);
+}
+.pnc-mini-h-add .elementor-widget-product-miniature-image img {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 4px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transform: none !important;
+}
+
+/* Marca ----------------------------------------------------------------- */
+.pnc-mini-h-add [class*="elementor-widget-product-miniature-manufacturer"],
+.pnc-mini-h-add [class*="elementor-widget-product-miniature-brand"],
+.pnc-mini-h-add .pnc-product-miniature-label {
+  overflow: hidden;
+}
+.pnc-mini-h-add [class*="elementor-widget-product-miniature-manufacturer"] *,
+.pnc-mini-h-add [class*="elementor-widget-product-miniature-brand"] *,
+.pnc-mini-h-add .pnc-product-miniature-label * {
+  font-size: 10px !important;
+  line-height: 15px !important;
+  letter-spacing: 0.16em !important;   /* como las otras etiquetas, más pequeña */
+  text-transform: uppercase;
+  color: var(--pnc-text-muted) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Nombre: 2 líneas como máximo ------------------------------------------- */
+.pnc-mini-h-add .ce-product-name,
+.pnc-mini-h-add .ce-product-name a {
+  font-size: 14px !important;
+  line-height: 20px !important;
+  font-weight: 500;
+  height: auto !important;
+  margin: 0 !important;
+}
+.pnc-mini-h-add .ce-product-name a {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--pnc-text) !important;
+}
+
+/* Precio ---------------------------------------------------------------- */
+.pnc-mini-h-add .ce-product-prices {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 6px;
+  margin-top: 2px;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  font-weight: 600;
+}
+.pnc-mini-h-add .ce-product-prices * {
+  font-size: inherit;
+}
+.pnc-mini-h-add .ce-product-prices .ce-product-price-regular,
+.pnc-mini-h-add .ce-product-prices del,
+.pnc-mini-h-add .ce-product-prices s {
+  order: 1;
+  font-size: 11px !important;
+  font-weight: 400;
+  color: var(--pnc-text-muted) !important;
+}
+/* Descuento (−20 %) en píldora, si la plantilla lo muestra */
+.pnc-mini-h-add [class*="discount"]:not(.ce-product-prices),
+.pnc-mini-h-add .ce-product-badge {
+  order: 2;
+  display: inline-block;
+  padding: 2px 6px !important;
+  border-radius: 999px !important;
+  background: var(--pnc-sage-soft) !important;
+  color: var(--pnc-green-dark-banner) !important;
+  font-size: 10px !important;
+  font-weight: 500;
+  line-height: 14px !important;
+}
+
+/* Botón de añadir: círculo de 40px solo con la bolsa --------------------- */
+.pnc-mini-h-add .elementor-widget-product-miniature-add-to-cart {
+  width: auto !important;
+  margin: 0 !important;
+}
+.pnc-mini-h-add .elementor-widget-product-miniature-add-to-cart a.elementor-button,
+.pnc-mini-h-add .elementor-widget-product-miniature-add-to-cart button.elementor-button {
+  display: grid !important;
+  place-items: center;
+  width: 40px !important;
+  height: 40px !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+}
+.pnc-mini-h-add .elementor-widget-product-miniature-add-to-cart .elementor-button-content-wrapper {
+  display: grid !important;
+  place-items: center;
+}
+.pnc-mini-h-add .elementor-widget-product-miniature-add-to-cart .elementor-button-icon {
+  margin: 0 !important;
+  font-size: 18px;
+  line-height: 1;
+}
+/* El texto se oculta a la vista pero lo leen los lectores de pantalla */
+.pnc-mini-h-add .elementor-widget-product-miniature-add-to-cart .elementor-button-text {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}

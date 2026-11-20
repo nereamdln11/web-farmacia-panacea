@@ -72,6 +72,14 @@ assets:
         path: assets/css/components/listing-header.css
         media: all
         priority: 248
+      - id: panacea-product-miniature-horizontal-add-cart
+        path: assets/css/components/product-miniature-horizontal-add-cart.css
+        media: all
+        priority: 249
+      - id: panacea-cart-drawer
+        path: assets/css/components/cart-drawer.css
+        media: all
+        priority: 251
       - id: panacea-header
         path: assets/css/overrides-ce/header.css
         media: all
@@ -145,6 +153,10 @@ assets:
       - id: panacea-header-search
         path: assets/js/header-search.js
         priority: 216
+        position: bottom
+      - id: panacea-cart-drawer
+        path: assets/js/cart-drawer.js
+        priority: 217
         position: bottom
     manufacturer:
       - id: brands-filter-js

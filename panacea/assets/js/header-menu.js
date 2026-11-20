@@ -79,3 +79,34 @@
     init();
   }
 })();
+
+/* ==========================================================================
+   Alto entero del header fijo (Safari en iPad)
+   La suma de las filas del header da un alto con decimales (p. ej. 153,19px
+   por el borde de 0,75px y los altos de línea). Safari, al dejar el header
+   fijo arriba (position: sticky), pinta en ese caso una línea negra de 1px
+   en el borde inferior: no es un borde CSS, es un fallo de composición.
+   Redondeando el alto hacia arriba a un número entero desaparece.
+   ========================================================================== */
+(function () {
+  'use strict';
+  var header = document.querySelector('header.header');
+  var content = header && header.firstElementChild;   // contenido del header
+  if (!header || !content || !window.ResizeObserver) {
+    return;
+  }
+  // Se mide el contenido (no el header, cuyo alto es el que se toca) para
+  // no entrar en bucle y para seguir los cambios de alto reales (por
+  // ejemplo, el buscador que se recoge en móvil).
+  function roundHeight() {
+    var cs = window.getComputedStyle(header);
+    var h = content.getBoundingClientRect().height +
+            parseFloat(cs.borderTopWidth) + parseFloat(cs.borderBottomWidth) +
+            parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+    header.style.height = Math.ceil(h - 0.01) + 'px';
+  }
+  new ResizeObserver(function () {
+    window.requestAnimationFrame(roundHeight);
+  }).observe(content);
+  roundHeight();
+})();

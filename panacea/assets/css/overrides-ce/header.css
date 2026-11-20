@@ -708,14 +708,20 @@ body.pnc-menu-open {
      buscador sube y se pliega; al aparecer, baja y se despliega.
      Se anima la altura (no solo la opacidad) para que la página y el
      desplegable de la hamburguesa se muevan con él, sin saltos.
-     El margin-top negativo absorbe el hueco de 8px entre líneas de la fila. */
+     Al recogerse, el hueco de 8px entre líneas de la fila (row-gap)
+     también pasa a 0; si no, quedaban 8px de más debajo de los iconos. */
+  .pnc-hdr-main .elementor-widget-wrap:has(> .pnc-hdr-search) {
+    transition: row-gap 280ms var(--pnc-ease);
+  }
+  header.pnc-search-collapsed .pnc-hdr-main .elementor-widget-wrap:has(> .pnc-hdr-search) {
+    row-gap: 0 !important;
+  }
   .pnc-hdr-main .elementor-element.elementor-widget.pnc-hdr-search {
     max-height: 64px;
     overflow: hidden;
     opacity: 1;
     transform: none;
     transition: max-height 280ms var(--pnc-ease),
-                margin-top 280ms var(--pnc-ease),
                 opacity 200ms var(--pnc-ease),
                 transform 280ms var(--pnc-ease),
                 visibility 0s;
@@ -727,13 +733,11 @@ body.pnc-menu-open {
   }
   header.pnc-search-collapsed .pnc-hdr-main .elementor-element.elementor-widget.pnc-hdr-search {
     max-height: 0;
-    margin-top: -8px;
     opacity: 0;
     transform: translateY(-12px);
     visibility: hidden;
     pointer-events: none;
     transition: max-height 280ms var(--pnc-ease),
-                margin-top 280ms var(--pnc-ease),
                 opacity 160ms var(--pnc-ease),
                 transform 280ms var(--pnc-ease),
                 visibility 0s linear 280ms;
@@ -763,10 +767,13 @@ body.pnc-menu-open {
 }
 
 /* ---------------------------------------------------------
-   2h. Línea inferior del header
-   Una sola línea al final del header, igual que la que separa la fila
-   principal de la fila de menú (0.75px, color --pnc-border), en todos
-   los dispositivos: en móvil no había nada que lo separara del contenido.
+   2h. Líneas del header
+   Solo hay una línea: la que va debajo de la fila principal (logo,
+   buscador e iconos), de 0.75px y color --pnc-border.
+     ≥1025px: es el borde superior de la fila de menú (pnc-hdr-nav), que
+              ya existía; debajo de la fila de menú no va ninguna.
+     ≤1024px: la fila de menú está oculta, así que la línea la pone el
+              propio header al final, para separarlo del contenido.
    Se anula la sombra de Hummingbird en #header (rgba(0,0,0,.5) con
    tamaño 0), que Safari en iPad pintaba como una línea negra al quedar
    el header fijo arriba.
@@ -774,9 +781,14 @@ body.pnc-menu-open {
 #header,
 header.header {
   box-shadow: none !important;
-  border-bottom: 0.75px solid var(--pnc-border) !important;
+  border-bottom: 0 !important;
 }
-/* La fila de menú no lleva línea propia abajo: la pone el header */
 .pnc-hdr-nav {
   border-bottom: 0 !important;
+}
+@media (max-width: 1024px) {
+  #header,
+  header.header {
+    border-bottom: 0.75px solid var(--pnc-border) !important;
+  }
 }

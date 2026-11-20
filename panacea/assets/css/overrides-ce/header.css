@@ -761,3 +761,22 @@ body.pnc-menu-open {
     font-size: 16px !important;
   }
 }
+
+/* ---------------------------------------------------------
+   2h. Línea inferior del header
+   Una sola línea al final del header, igual que la que separa la fila
+   principal de la fila de menú (0.75px, color --pnc-border), en todos
+   los dispositivos: en móvil no había nada que lo separara del contenido.
+   Se anula la sombra de Hummingbird en #header (rgba(0,0,0,.5) con
+   tamaño 0), que Safari en iPad pintaba como una línea negra al quedar
+   el header fijo arriba.
+   --------------------------------------------------------- */
+#header,
+header.header {
+  box-shadow: none !important;
+  border-bottom: 0.75px solid var(--pnc-border) !important;
+}
+/* La fila de menú no lleva línea propia abajo: la pone el header */
+.pnc-hdr-nav {
+  border-bottom: 0 !important;
+}

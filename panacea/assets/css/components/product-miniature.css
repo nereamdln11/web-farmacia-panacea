@@ -21,6 +21,17 @@
 .elementor-section-wrap[data-id-product] .pnc-product-miniature-image img {
   mix-blend-mode: multiply;
 }
+/* Zoom al pasar el ratón sin que asomen los picos: la imagen se recorta en
+   su propio contenedor, con las esquinas de arriba redondeadas como la
+   tarjeta (22px menos el borde de 1px). Safari no recorta bien un hijo
+   que se está escalando solo con el overflow + radio del padre; la
+   máscara fuerza ese recorte. */
+.elementor-section-wrap[data-id-product] .pnc-product-miniature-image {
+  overflow: hidden;
+  border-radius: 21px 21px 0 0;
+  isolation: isolate;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
 
 @media (max-width: 767px) {
 
@@ -39,6 +50,9 @@
   /* Tarjeta ------------------------------------------------------------- */
   .elementor-section-wrap[data-id-product] {
     border-radius: var(--pnc-radius-md);
+  }
+  .elementor-section-wrap[data-id-product] .pnc-product-miniature-image {
+    border-radius: calc(var(--pnc-radius-md) - 1px) calc(var(--pnc-radius-md) - 1px) 0 0;
   }
   /* En táctil no hay "pasar por encima": sin levantar la tarjeta */
   .elementor-section-wrap[data-id-product]:hover {

@@ -88,6 +88,15 @@
   --pnc-dur: 220ms;
   --pnc-transition-duration: 0.25s;
   --pnc-transition-easing: ease;
+
+  /* Paneles laterales (carrito y filtros) -------------------------------
+     Mismo velo, radio, sombra y movimiento para los dos. La curva arranca
+     rápida y frena suave al final (sensación natural, sin rebote). */
+  --pnc-drawer-overlay: rgb(0 0 0 / .25);   /* el velo de los filtros */
+  --pnc-drawer-radius: var(--pnc-radius-xl);
+  --pnc-drawer-shadow: 0 0 32px rgb(0 0 0 / .12);
+  --pnc-drawer-dur: 400ms;
+  --pnc-drawer-ease: cubic-bezier(.32,.72,0,1);
 }
 
 /* Puente con las variables de Hummingbird / Bootstrap 5 ------------------- */

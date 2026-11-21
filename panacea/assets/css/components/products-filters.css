@@ -488,3 +488,62 @@
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   }
 }
+
+/* ==========================================================================
+   Panel lateral de filtros (botón "Filtros" en móvil y tablet)
+   Mismo sistema que el carrito desplegable (cart-drawer.css): velo, radio,
+   sombra y movimiento salen de las variables --pnc-drawer-*.
+   - Entra y sale por la izquierda: esquinas rectas a la izquierda y
+     redondeadas a la derecha.
+   - Solo se desliza (sin desvanecerse) y el velo aparece a la vez.
+   Creative Elements cierra el <dialog> al instante y, cerrado, lo dejaba
+   en 0×0 (escala 0), así que no había animación de salida. Aquí el panel
+   cerrado se queda fijo, fuera de la pantalla e invisible; al abrir o
+   cerrar solo cambian el desplazamiento y el velo, y los dos se animan.
+   Solo afecta al widget con "sidebar" (el botón), no a la columna de
+   filtros del escritorio (.pnc-container-filters).
+   ========================================================================== */
+.pnc-filters.ce-filters--sidebar-yes .ce-filters__container,
+.pnc-filters.ce-filters--sidebar-yes .ce-filters__container.ce-filters--shown {
+  position: fixed !important;
+  inset: 0;
+  z-index: 9998;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden;
+  transform: none !important;
+}
+/* Cerrado: velo transparente y todo invisible al acabar la salida */
+.pnc-filters.ce-filters--sidebar-yes .ce-filters__container:not(.ce-filters--shown) {
+  visibility: hidden !important;
+  background-color: transparent !important;
+  transition:
+    background-color var(--pnc-drawer-dur) var(--pnc-drawer-ease),
+    visibility 0s linear var(--pnc-drawer-dur) !important;
+}
+/* Abierto: velo compartido con el carrito */
+.pnc-filters.ce-filters--sidebar-yes .ce-filters__container.ce-filters--shown {
+  visibility: visible !important;
+  background-color: var(--pnc-drawer-overlay) !important;
+  transition: background-color var(--pnc-drawer-dur) var(--pnc-drawer-ease) !important;
+}
+
+/* El panel: mismo tamaño y relleno que ponía Creative Elements */
+.pnc-filters.ce-filters--sidebar-yes .ce-filters__container .ce-filters {
+  position: fixed !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 300px;
+  max-width: 100%;
+  padding: 30px;
+  background: var(--pnc-white);
+  border-radius: 0 var(--pnc-drawer-radius) var(--pnc-drawer-radius) 0;
+  box-shadow: var(--pnc-drawer-shadow) !important;
+  opacity: 1 !important;
+  transform: translateX(-100%) !important;
+  transition: transform var(--pnc-drawer-dur) var(--pnc-drawer-ease) !important;
+}
+.pnc-filters.ce-filters--sidebar-yes .ce-filters__container.ce-filters--shown .ce-filters {
+  transform: translateX(0) !important;
+}

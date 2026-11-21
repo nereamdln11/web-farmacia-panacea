@@ -5,7 +5,7 @@
    Basado en CartDrawer.tsx de Lovable:
      · Panel a la derecha: 400px desde tablet (esquinas izquierdas de 24px),
        ancho completo en móvil, alto de pantalla
-     · Velo verde oscuro al 45 %
+     · Velo, radio, sombra y movimiento compartidos con los filtros
      · Cabecera, barra de envío y pie fijos; la lista hace scroll sola
      · Márgenes de 24px; filas de 20px arriba y abajo con líneas grises
      · Imagen 72×72 a sangre sobre crema · marca 10px · nombre 14/20 en 2 líneas
@@ -17,26 +17,34 @@
   display: none !important;
 }
 
-/* Velo y bloqueo del scroll de la página -------------------------------- */
-.elementor-cart__container.elementor-cart--shown {
-  background-color: rgb(67 83 66 / 0.45) !important;
-}
+/* Bloqueo del scroll de la página --------------------------------------- */
 html:has(.elementor-cart__container[open]) {
   overflow: hidden;
 }
 
-/* Entrada desde la derecha ---------------------------------------------
+/* Movimiento: entra y sale por la derecha ------------------------------
+   Mismo criterio que el panel de filtros (products-filters.css): solo se
+   desliza (sin desvanecerse) y el velo aparece a la vez, con la misma
+   duración y curva (variables --pnc-drawer-*). Velo y panel duran igual
+   porque Creative Elements cierra el diálogo con la primera transición
+   que termina: si una acabara antes, el panel se cortaría de golpe.
    Creative Elements abre el <dialog> y le pone la clase "shown" en el
-   mismo instante, así que no había estado inicial que animar y el panel
-   aparecía de golpe. @starting-style le da ese punto de partida: fuera de
-   la pantalla a la derecha y el velo transparente. (Al cerrar ya se
-   animaba.) */
+   mismo instante; @starting-style da el punto de partida de la entrada. */
+.elementor-cart__container {
+  transition: background-color var(--pnc-drawer-dur) var(--pnc-drawer-ease) !important;
+}
+.elementor-widget-shopping-cart .elementor-cart__main {
+  opacity: 1 !important;
+  transition: transform var(--pnc-drawer-dur) var(--pnc-drawer-ease) !important;
+}
+.elementor-cart__container.elementor-cart--shown {
+  background-color: var(--pnc-drawer-overlay) !important;
+}
 @starting-style {
   .elementor-cart__container.elementor-cart--shown {
-    background-color: rgb(67 83 66 / 0) !important;
+    background-color: transparent !important;
   }
   .elementor-cart__container.elementor-cart--shown .elementor-cart__main {
-    opacity: 0;
     transform: translateX(100%);
   }
 }
@@ -51,12 +59,13 @@ html:has(.elementor-cart__container[open]) {
   background: var(--pnc-white);
   color: var(--pnc-text);
   font-family: var(--pnc-font-body);
-  box-shadow: var(--pnc-shadow-lift) !important;
+  box-shadow: var(--pnc-drawer-shadow) !important;
 }
+/* Sale por la derecha: redondeadas las esquinas del lado izquierdo */
 @media (min-width: 768px) {
   .elementor-widget-shopping-cart .elementor-cart__main {
     width: 400px !important;
-    border-radius: var(--pnc-radius-xl) 0 0 var(--pnc-radius-xl);
+    border-radius: var(--pnc-drawer-radius) 0 0 var(--pnc-drawer-radius);
   }
 }
 

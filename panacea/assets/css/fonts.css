@@ -2,7 +2,7 @@
    Outfit (cuerpo) + Cormorant Garamond (titulares), ambas gratuitas en Google Fonts.
    Si en el futuro compras la licencia de Penumbra Sans Std, sube los .woff2 a
    assets/fonts/, descomenta el bloque @font-face y ponla primera en
-   --pnc-font-display (tokens.css).
+   --pnc-font-display (global/_variables.css).
    Alternativa gratuita con aire griego: 'Marcellus' o 'Julius Sans One'. */
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
